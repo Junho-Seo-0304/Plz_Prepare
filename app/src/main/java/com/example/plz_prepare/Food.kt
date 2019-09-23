@@ -1,13 +1,31 @@
 package com.example.plz_prepare
 
-class Food{
-    var name : String
-    var image : Int
-    var price : Int
+import android.os.Parcel
+import android.os.Parcelable
 
-    constructor(name: String, image: Int, price: Int){
-        this.name=name
-        this.image=image
-        this.price=price
+open class Food(val name: String?, val image: Int, val price: Int, val explain: String?) :
+    Parcelable {
+    constructor(source: Parcel) : this(
+        source.readString(),
+        source.readInt(),
+        source.readInt(),
+        source.readString()
+    )
+
+    override fun describeContents() = 0
+
+    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+        writeString(name)
+        writeInt(image)
+        writeInt(price)
+        writeString(explain)
+    }
+
+    companion object {
+        @JvmField
+        val CREATOR: Parcelable.Creator<Food> = object : Parcelable.Creator<Food> {
+            override fun createFromParcel(source: Parcel): Food = Food(source)
+            override fun newArray(size: Int): Array<Food?> = arrayOfNulls(size)
+        }
     }
 }
