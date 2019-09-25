@@ -26,7 +26,7 @@ class MenuAdapter(val context: Context,val foodslist:ArrayList<Food>) : BaseAdap
         val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.menu,parent,false) as View
         view.imgFood.setImageResource(foodslist[position].image)
         view.findViewById<TextView>(R.id.menuName).text = foodslist[position].name
-        view.findViewById<TextView>(R.id.menuPrice).text = foodslist[position].price.toString()
+        view.findViewById<TextView>(R.id.menuPrice).text = foodslist[position].price.toString() + "원"
         return view
     }
 }
