@@ -3,6 +3,8 @@ package com.example.plz_prepare
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.*
 import kotlinx.android.synthetic.main.activity_food_num.*
 import java.util.*
@@ -16,27 +18,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var Menu_Grid=findViewById<GridView>(R.id.menu_Grid)
-        var Name_Text=findViewById<TextView>(R.id.Restaurant)
-        var Category_Text=findViewById<TextView>(R.id.Category)
-        var foodsList = ArrayList<Food>()
-        var button=findViewById<Button>(R.id.button)
-        var priceState = 0
 
-        foodsList.add(Food("아메리카노",R.drawable.americano,3000,"졸음을 없애주는 아메리카노"))
-        foodsList.add(Food("카페라떼",R.drawable.ratte,4000,"마음을 따뜻하게 해주는 카페라떼"))
-        foodsList.add(Food("카페모카",R.drawable.mocha,4500,"모카향이 가득한 카페모카"))
-
-        val adapter = MenuAdapter(this, foodsList)
-        Menu_Grid.adapter = adapter
-        Name_Text.text="스타버억"
-        Category_Text.text="카페"
-        Menu_Grid.setOnItemClickListener { parent, view, position, id ->
-            val foodIntent = Intent(this,FoodNumActivity::class.java)
-            foodIntent.putExtra("Food",foodsList[position])
-            startActivityForResult(foodIntent,1)
-        }
-        button.text=priceState.toString()+"원 결제하기"
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -49,5 +31,17 @@ class MainActivity : AppCompatActivity() {
             }
             button.text=priceState.toString()+"원 결제하기"
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here.
+
+        return super.onOptionsItemSelected(item)
     }
 }
