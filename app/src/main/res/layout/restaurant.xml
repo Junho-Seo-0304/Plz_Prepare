@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/americano" />
+        app:srcCompat="@drawable/cafe" />
 
     <TextView
         android:id="@+id/menu_name"
@@ -24,7 +24,7 @@
         android:layout_height="0dp"
         android:layout_marginLeft="10dp"
         android:gravity="center|left"
-        android:text="아메리카노"
+        android:text="스타벅스"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@id/menu_price"
         app:layout_constraintLeft_toRightOf="@id/menu_imageview"
@@ -37,12 +37,10 @@
         android:layout_height="0dp"
         android:layout_marginLeft="10dp"
         android:gravity="center|left"
-        android:text="4,000"
+        android:text="09:00 ~ 22:00"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/menu_imageview"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/menu_name" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
