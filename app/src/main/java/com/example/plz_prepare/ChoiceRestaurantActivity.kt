@@ -1,4 +1,18 @@
 package com.example.plz_prepare
 
-class ChoiceRestaurantActivity {
+
+import android.os.Bundle
+
+import androidx.appcompat.app.AppCompatActivity
+
+
+
+class ChoiceRestaurantActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_choice_restaurant)
+
+
+
+    }
 }

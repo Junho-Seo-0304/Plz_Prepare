@@ -16,7 +16,7 @@ class RestaurantActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_restaurant)
 
-        var Menu_Grid=findViewById<GridView>(R.id.menu_Grid)
+        var Menu_Grid=findViewById<GridView>(R.id.category_gridview)
         var Name_Text=findViewById<TextView>(R.id.Restaurant)
         var Category_Text=findViewById<TextView>(R.id.Category)
         var foodsList = ArrayList<Food>()

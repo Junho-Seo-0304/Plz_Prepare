@@ -13,7 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="65dp"
         android:gravity="center"
-        android:text="장바구니"
+        android:text="주문상태"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@id/order_state_menu_list"
         app:layout_constraintHorizontal_bias="0.0"
