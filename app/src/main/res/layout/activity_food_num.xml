@@ -30,9 +30,10 @@
 
         android:layout_centerHorizontal="true"
         android:gravity="center|left"
-        android:text="음식설명"
+        android:text="톨 사이즈 \n시원한 아이스 아메리카노"
 
-        android:textSize="40dp"
+        android:textColor="#000000"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,40 +58,30 @@
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:gravity="center|left"
+            android:gravity="center"
             android:text="가격"
+            android:textColor="#000000"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/space3"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Space
-            android:id="@+id/space3"
-            android:layout_width="60dp"
-            android:layout_height="30dp"
-
-            android:layout_marginTop="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/Price"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/foodPrice" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/foodPrice"
             android:layout_width="120dp"
             android:layout_height="30dp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
             android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="0원"
-            android:textSize="12sp"
+            android:textColor="#000000"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/Price"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.6" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -105,29 +96,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/constraintLayout2">
 
-        <Space
-            android:id="@+id/space2"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/fnum"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/minus_button" />
-
         <TextView
             android:id="@+id/fnum"
             android:layout_width="60dp"
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:gravity="center|left"
+            android:gravity="center"
             android:text="수량"
+            android:textColor="#000000"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/space2"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -142,7 +122,6 @@
             android:layout_weight="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintLeft_toRightOf="@id/fnum"
             app:layout_constraintRight_toLeftOf="@id/num"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/minus" />
@@ -157,10 +136,10 @@
 
             android:gravity="center"
             android:text="0"
-            android:textSize="12sp"
+            android:textColor="#000000"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintLeft_toRightOf="@id/minus_button"
             app:layout_constraintRight_toLeftOf="@id/plus_button"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -170,12 +149,12 @@
             android:layout_height="30dp"
             android:layout_marginTop="10dp"
 
-            android:layout_marginBottom="10dp"
+            android:layout_marginRight="30dp"
 
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintLeft_toRightOf="@id/num"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/plus" />
@@ -187,10 +166,11 @@
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:background="#00ffce"
+        android:background="#646464"
         android:gravity="center"
         android:text="장바구니 담기"
 
+        android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -200,10 +180,11 @@
         android:id="@+id/cash"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:background="#00ffce"
+        android:background="#646464"
         android:gravity="center"
 
         android:text="결제하기"
+        android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -218,8 +199,9 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginEnd="206dp"
-        android:text="음식 이름"
-        android:textSize="35dp"
+        android:text="아메리카노"
+        android:textColor="#000000"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/foodExplain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
