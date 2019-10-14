@@ -89,9 +89,9 @@ class ChoiceRestaurantActivity : AppCompatActivity() {
                 if(p0.exists()){
                     RestaurantList.clear()
                     for(e in p0.children){
-                        if(e.child("*").exists()) {
-                            val restaurant = e.child("*").getValue(Restaurant::class.java)
-                            RestaurantList.add(restaurant!!)
+                        if(e.exists()) {
+                            val restaurant = e.getValue(Restaurant::class.java)!!
+                            RestaurantList.add(restaurant)
                         }
                     }
                     val adapter = RestaurantListAdapter(this@ChoiceRestaurantActivity,R.layout.restaurant,RestaurantList)

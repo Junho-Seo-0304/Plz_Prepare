@@ -16,7 +16,7 @@ class RestaurantListAdapter(val ctxt : Context, val layoutId : Int, val restaura
         val view : View = layoutInflater.inflate(layoutId,null)
         val Rname = view.findViewById<TextView>(R.id.Restaurant_name)
         val restaurant = restaurantList[position]
-        Rname.text=restaurant.rname
+        Rname.text=restaurant.Rname
         return view
     }
 }
