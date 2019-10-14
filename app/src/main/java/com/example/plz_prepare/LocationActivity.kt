@@ -1,4 +1,6 @@
 package com.example.plz_prepare
 
-class LocationActivity {
+import androidx.appcompat.app.AppCompatActivity
+
+class LocationActivity: AppCompatActivity() {
 }

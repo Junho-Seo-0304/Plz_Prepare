@@ -16,22 +16,21 @@ class RestaurantActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_restaurant)
 
-        var Menu_Grid=findViewById<GridView>(R.id.menu_Grid)
-        var Name_Text=findViewById<TextView>(R.id.Restaurant)
-        var Category_Text=findViewById<TextView>(R.id.Category)
+        var Menu_list=findViewById<ListView>(R.id.menu_list)
+        var Name_Text=findViewById<TextView>(R.id.order_bar)
         var foodsList = ArrayList<Food>()
-        var button=findViewById<Button>(R.id.button)
+        var button=findViewById<Button>(R.id.cash_button)
         var priceState = 0
+        var order_img=findViewById<ImageView>(R.id.order_)
 
-        foodsList.add(Food("아메리카노",R.drawable.americano,3000,"졸음을 없애주는 아메리카노"))
-        foodsList.add(Food("카페라떼",R.drawable.ratte,4000,"마음을 따뜻하게 해주는 카페라떼"))
-        foodsList.add(Food("카페모카",R.drawable.mocha,4500,"모카향이 가득한 카페모카"))
+        foodsList.add(Food("아메리카노",R.drawable.americano,3000))
+        foodsList.add(Food("카페라떼",R.drawable.ratte,4000))
+        foodsList.add(Food("카페모카",R.drawable.mocha,4500    ))
 
         val adapter = MenuAdapter(this, foodsList)
-        Menu_Grid.adapter = adapter
+        Menu_list.adapter = adapter
         Name_Text.text="스타버억"
-        Category_Text.text="카페"
-        Menu_Grid.setOnItemClickListener { parent, view, position, id ->
+        Menu_list.setOnItemClickListener { parent, view, position, id ->
             val foodIntent = Intent(this,FoodNumActivity::class.java)
             foodIntent.putExtra("Food",foodsList[position])
             startActivityForResult(foodIntent,1)

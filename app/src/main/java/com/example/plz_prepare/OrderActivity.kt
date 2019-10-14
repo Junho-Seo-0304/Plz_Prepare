@@ -1,4 +1,6 @@
 package com.example.plz_prepare
 
-class OrderActivity {
+import androidx.appcompat.app.AppCompatActivity
+
+class OrderActivity : AppCompatActivity(){
 }

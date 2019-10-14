@@ -1,4 +1,6 @@
 package com.example.plz_prepare
 
-class ChoiceRestaurantActivity {
+import androidx.appcompat.app.AppCompatActivity
+
+class ChoiceRestaurantActivity: AppCompatActivity() {
 }

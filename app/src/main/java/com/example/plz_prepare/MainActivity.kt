@@ -3,45 +3,36 @@ package com.example.plz_prepare
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.*
-import kotlinx.android.synthetic.main.activity_food_num.*
 import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
-    var orderList = ArrayList<Order>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
     }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (data != null) {
-            val order = data.extras!!.get("Order") as Order
-            orderList.add(order)
-            var priceState = 0
-            for(i in orderList){
-                priceState += i.food!!.price*i.num
-            }
-            button.text=priceState.toString()+"원 결제하기"
-        }
-    }
+    var Categorysgrid=findViewById<GridView>(R.id.category_gridview)
+    var Location_bar=findViewById<TextView>(R.id.location_bar)
+    var CategorysList = arrayListOf<Category>(
+        Category(R.drawable.korean,"한식"),
+        Category(R.drawable.western,"양식"),
+        Category(R.drawable.japenese,"일식"),
+        Category(R.drawable.chinese,"중식"),
+        Category(R.drawable.festfood,"패스트푸드"),
+        Category(R.drawable.cafe,"카페/디저트")
+    )
+    var order_img=findViewById<ImageView>(R.id.order_)
+    var Location_icon=findViewById<ImageView>(R.id.location_icon)
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu, menu)
-        return true
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here.
+    val C_adapter = CategoryAdapter(this, CategorysList)
+    Categorysgrid.adapter = C_adapter
 
-        return super.onOptionsItemSelected(item)
+    category_gridview.setOnItemClickListener { parent, view, position, id ->
+        val categoryIntent = Intent(this,ChoiceRestaurantActivity::class.java)
+        categoryIntent.putExtra("Category",CategorysList[position])
+        startActivityForResult(categoryIntent,1)
     }
 }

@@ -28,7 +28,6 @@ class FoodNumActivity : AppCompatActivity() {
         imgView.setImageResource(food.image)
         foodName.text=food.name
         foodPrice.text=food.price.toString()
-        foodExplain.text=food.explain
 
         numberPicker.minValue=0
         numberPicker.maxValue=20

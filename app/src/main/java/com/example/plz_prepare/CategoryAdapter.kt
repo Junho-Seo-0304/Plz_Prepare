@@ -7,15 +7,15 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import kotlinx.android.synthetic.main.menu.view.*
+import kotlinx.android.synthetic.main.category.view.*
 
-class MenuAdapter(val context: Context,val foodslist:ArrayList<Food>) : BaseAdapter(){
+class CategoryAdapter(val context: Context,val category_grid:ArrayList< Category>) : BaseAdapter(){
     override fun getCount(): Int {
-       return foodslist.size
+        return category_grid.size
     }
 
     override fun getItem(position: Int): Any {
-        return foodslist[position]
+        return category_grid[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -24,9 +24,8 @@ class MenuAdapter(val context: Context,val foodslist:ArrayList<Food>) : BaseAdap
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.menu,parent,false) as View
-        view.menu_imageview.setImageResource(foodslist[position].image)
-        view.findViewById<TextView>(R.id.menu_name).text = foodslist[position].name
-        view.findViewById<TextView>(R.id.menu_price).text = foodslist[position].price.toString() + "원"
+        view.imgCategory.setImageResource(category_grid[position].c_image)
+        view.findViewById<TextView>(R.id.categoryName).text = category_grid[position].c_name
         return view
     }
 }
