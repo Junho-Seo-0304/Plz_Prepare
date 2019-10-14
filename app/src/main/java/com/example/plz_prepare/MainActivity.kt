@@ -20,8 +20,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         order_.setOnClickListener { val nextIntent = Intent(this, OrderActivity::class.java)
-            startActivity(nextIntent) }
-
+            startActivity(nextIntent)
+        }
 
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
