@@ -17,28 +17,29 @@ class FoodNumActivity : AppCompatActivity() {
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_food_num)
         var imgView = findViewById<ImageView>(R.id.imgFood)
         var foodName = findViewById<TextView>(R.id.foodName)
         var foodPrice = findViewById<TextView>(R.id.foodPrice)
         var foodExplain = findViewById<TextView>(R.id.foodExplain)
-        var numberPicker = findViewById<NumberPicker>(R.id.num)
-        var num = numberPicker.value
-        var order = Order(food,num)
+        var foodQuantity = findViewById<TextView>(R.id.num)
+        var minusButton = findViewById<ImageView>(R.id.minus_button)
+        var plusButton = findViewById<ImageView>(R.id.plus_button)
+        var order = Order(food, num = 0)
         var button = findViewById<Button>(R.id.button)
+        var num = Integer.parseInt(foodQuantity.text.toString())
 
         imgView.setImageResource(food.image)
         foodName.text=food.name
         foodPrice.text=food.price.toString()
         foodExplain.text=food.explain
 
-        numberPicker.minValue=0
-        numberPicker.maxValue=20
-        numberPicker.wrapSelectorWheel = false
-        numberPicker.setOnValueChangedListener { picker, oldVal, newVal ->
-            num = numberPicker.value
+
             button.text = (food.price * num).toString() + "원 장바구니 담기"
-        }
+
+
+
         button.setOnClickListener{view ->
                 val numIntent = Intent(this,MainActivity::class.java)
                 order= Order(food,num)
@@ -46,5 +47,17 @@ class FoodNumActivity : AppCompatActivity() {
                 setResult(1,numIntent)
                 finish()
         }
+
+        minusButton.setOnClickListener {
+            num--
+
+        }
+
+        plus_button.setOnClickListener {
+            num++
+
+        }
+
+
     }
 }

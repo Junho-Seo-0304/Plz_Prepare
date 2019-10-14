@@ -17,8 +17,7 @@ class RestaurantActivity : AppCompatActivity() {
         setContentView(R.layout.activity_restaurant)
 
         var Menu_Grid=findViewById<GridView>(R.id.category_gridview)
-        var Name_Text=findViewById<TextView>(R.id.Restaurant)
-        var Category_Text=findViewById<TextView>(R.id.Category)
+        var Name_Text=findViewById<TextView>(R.id.menu_name)
         var foodsList = ArrayList<Food>()
         var button=findViewById<Button>(R.id.button)
         var priceState = 0
@@ -30,7 +29,7 @@ class RestaurantActivity : AppCompatActivity() {
         val adapter = MenuAdapter(this, foodsList)
         Menu_Grid.adapter = adapter
         Name_Text.text="스타버억"
-        Category_Text.text="카페"
+
         Menu_Grid.setOnItemClickListener { parent, view, position, id ->
             val foodIntent = Intent(this,FoodNumActivity::class.java)
             foodIntent.putExtra("Food",foodsList[position])
