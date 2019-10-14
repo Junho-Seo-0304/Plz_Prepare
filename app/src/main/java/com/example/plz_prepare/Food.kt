@@ -3,10 +3,9 @@ package com.example.plz_prepare
 import android.os.Parcel
 import android.os.Parcelable
 
-open class Food(val name: String?, val image: Int, val price: Int, val explain: String?) : Parcelable {
+open class Food(val fname: String?,  val fprice: Int, val fexplain: String?) : Parcelable {
     constructor(source: Parcel) : this(
         source.readString(),
-        source.readInt(),
         source.readInt(),
         source.readString()
     )
@@ -14,10 +13,9 @@ open class Food(val name: String?, val image: Int, val price: Int, val explain: 
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
-        writeString(name)
-        writeInt(image)
-        writeInt(price)
-        writeString(explain)
+        writeString(fname)
+        writeInt(fprice)
+        writeString(fexplain)
     }
 
     companion object {

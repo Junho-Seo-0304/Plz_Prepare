@@ -30,13 +30,12 @@ class FoodNumActivity : AppCompatActivity() {
         var button = findViewById<Button>(R.id.button)
         var num = Integer.parseInt(foodQuantity.text.toString())
 
-        imgView.setImageResource(food.image)
-        foodName.text=food.name
-        foodPrice.text=food.price.toString()
-        foodExplain.text=food.explain
+        foodName.text=food.fname
+        foodPrice.text=food.fprice.toString()
+        foodExplain.text=food.fexplain
 
 
-            button.text = (food.price * num).toString() + "원 장바구니 담기"
+            button.text = (food.fprice * num).toString() + "원 장바구니 담기"
 
 
 

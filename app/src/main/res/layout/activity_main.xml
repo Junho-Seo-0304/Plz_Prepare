@@ -14,7 +14,6 @@
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/category_gridview"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -22,7 +21,7 @@
         <TextView
             android:id="@+id/order_bar"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:text="준비를 부탁해"
             android:textSize="36sp"
@@ -62,7 +61,7 @@
         <ImageView
             android:id="@+id/location_icon"
             android:layout_width="35dp"
-            android:layout_height="0dp"
+            android:layout_height="35dp"
             android:gravity="center"
             android:src="@drawable/ic_launcher_foreground"
             android:textSize="14sp"
@@ -77,9 +76,10 @@
     <GridView
 
         android:id="@+id/category_gridview"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:numColumns="2"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

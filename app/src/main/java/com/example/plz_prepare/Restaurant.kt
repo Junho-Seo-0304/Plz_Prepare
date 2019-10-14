@@ -1,11 +1,9 @@
 package com.example.plz_prepare
 
-class Restaurant {
-    var name : String
-    var category : String
+class Restaurant (
+    var rname : String,
+    var rlocationX:Long,
+    var rlocationY:Long,
+    var Menu : ArrayList<Food>?){
 
-    constructor(name : String, category: String){
-        this.name=name
-        this.category=category
-    }
 }

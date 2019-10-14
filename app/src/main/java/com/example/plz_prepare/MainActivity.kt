@@ -13,39 +13,26 @@ import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
-    var orderList = ArrayList<Order>()
+    val categoryList = ArrayList<Category>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        order_.setOnClickListener { val nextIntent = Intent(this, OrderActivity::class.java)
-            startActivity(nextIntent)
+        var Cgrid = findViewById<GridView>(R.id.category_gridview)
+        categoryList.add(Category("한식", R.drawable.korean))
+        categoryList.add(Category("중식",R.drawable.chinese))
+        categoryList.add(Category("일식",R.drawable.japenese))
+        categoryList.add(Category("양식",R.drawable.western))
+        categoryList.add(Category("패스트푸드",R.drawable.junk))
+        categoryList.add(Category("카페",R.drawable.cafe))
+        val CAdapter = CategoryAdapter(this,categoryList)
+        Cgrid.adapter=CAdapter
+
+        Cgrid.setOnItemClickListener { parent, view, position, id ->
+            val intent = Intent(this,ChoiceRestaurantActivity::class.java)
+            intent.putExtra("CategoryPosition",position)
+            startActivity(intent)
         }
-
-    }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (data != null) {
-            val order = data.extras!!.get("Order") as Order
-            orderList.add(order)
-            var priceState = 0
-            for(i in orderList){
-                priceState += i.food!!.price*i.num
-            }
-            button.text=priceState.toString()+"원 결제하기"
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here.
-
-        return super.onOptionsItemSelected(item)
     }
 }

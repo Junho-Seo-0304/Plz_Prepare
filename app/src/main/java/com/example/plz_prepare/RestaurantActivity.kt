@@ -22,9 +22,6 @@ class RestaurantActivity : AppCompatActivity() {
         var button=findViewById<Button>(R.id.button)
         var priceState = 0
 
-        foodsList.add(Food("아메리카노",R.drawable.americano,3000,"졸음을 없애주는 아메리카노"))
-        foodsList.add(Food("카페라떼",R.drawable.ratte,4000,"마음을 따뜻하게 해주는 카페라떼"))
-        foodsList.add(Food("카페모카",R.drawable.mocha,4500,"모카향이 가득한 카페모카"))
 
         val adapter = MenuAdapter(this, foodsList)
         Menu_Grid.adapter = adapter
@@ -44,7 +41,7 @@ class RestaurantActivity : AppCompatActivity() {
             orderList.add(order)
             var priceState = 0
             for(i in orderList){
-                priceState += i.food!!.price*i.num
+                priceState += i.food!!.fprice*i.num
             }
             button.text=priceState.toString()+"원 결제하기"
         }
