@@ -1,6 +1,29 @@
 package com.example.plz_prepare
 
+import android.content.Intent
+import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_order.*
 
-class OrderActivity : AppCompatActivity(){
+class OrderActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_order)
+
+        basket_cash.setOnClickListener {
+            val nextIntent = Intent(this, BasketActivity::class.java)
+            nextIntent.putExtra("장바구니정보","스타벅스")
+            startActivity(nextIntent)
+        }
+
+        order_state.setOnClickListener {
+            val nextIntent = Intent(this, OrderStateActivity::class.java)
+            nextIntent.putExtra("주문상태","아메리카노")
+            startActivity(nextIntent)
+        }
+
+    }
+
+
 }

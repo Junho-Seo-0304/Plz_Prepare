@@ -120,6 +120,7 @@
             android:layout_marginBottom="10dp"
 
             android:layout_weight="1"
+            android:clickable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintRight_toLeftOf="@id/num"
@@ -153,6 +154,7 @@
 
             android:layout_marginBottom="10dp"
             android:layout_weight="1"
+            android:clickable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintRight_toRightOf="parent"

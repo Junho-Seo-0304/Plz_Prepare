@@ -12,6 +12,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
     }
     var Categorysgrid=findViewById<GridView>(R.id.category_gridview)
     var Location_bar=findViewById<TextView>(R.id.location_bar)
