@@ -13,6 +13,7 @@
         <activity android:name=".RestaurantActivity" />
         <activity android:name=".FoodNumActivity" />
         <activity android:name=".OrderActivity"/>
+        <activity android:name=".BasketActivity"/>
         <activity android:name=".MainActivity">
 
 

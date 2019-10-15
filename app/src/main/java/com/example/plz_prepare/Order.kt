@@ -3,9 +3,9 @@ package com.example.plz_prepare
 import android.os.Parcel
 import android.os.Parcelable
 
-class Order(val food: Food?, val num: Int) : Parcelable {
+class Order(val food: Menu?, var num: Int) : Parcelable {
     constructor(source: Parcel) : this(
-        source.readParcelable<Food>(Food::class.java.classLoader),
+        source.readParcelable<Menu>(Menu::class.java.classLoader),
         source.readInt()
     )
 

@@ -17,6 +17,7 @@ class ChoiceRestaurantActivity : AppCompatActivity() {
     val CP by lazy { intent.extras!!["CategoryPosition"] as Int }
     private lateinit var database : DatabaseReference
     lateinit var RestaurantList:MutableList<Restaurant>
+    lateinit var uidList:MutableList<String?>
     lateinit var listView : ListView
     val CList : Array<String> = arrayOf("한식","중식","일식","양식","패스트푸드","카페")
 
@@ -25,6 +26,7 @@ class ChoiceRestaurantActivity : AppCompatActivity() {
         setContentView(R.layout.activity_choice_restaurant)
 
         RestaurantList = mutableListOf()
+        uidList = mutableListOf()
         database=FirebaseDatabase.getInstance().reference.child("Users").child(CList[CP])
         listView = findViewById(R.id.restraunt_list)
 
@@ -92,6 +94,7 @@ class ChoiceRestaurantActivity : AppCompatActivity() {
                         if(e.exists()) {
                             val restaurant = e.getValue(Restaurant::class.java)!!
                             RestaurantList.add(restaurant)
+                            uidList.add(e.key)
                         }
                     }
                     val adapter = RestaurantListAdapter(this@ChoiceRestaurantActivity,R.layout.restaurant,RestaurantList)
@@ -100,5 +103,11 @@ class ChoiceRestaurantActivity : AppCompatActivity() {
             }
         })
 
+        listView.setOnItemClickListener { parent, view, position, id ->
+            val intent = Intent(this,RestaurantActivity::class.java)
+            intent.putExtra("Category",CList[CP])
+            intent.putExtra("uid",uidList[position])
+            startActivity(intent)
+        }
     }
 }
