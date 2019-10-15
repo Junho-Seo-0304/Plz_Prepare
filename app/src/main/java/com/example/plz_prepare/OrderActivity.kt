@@ -13,13 +13,11 @@ class OrderActivity : AppCompatActivity() {
 
         basket_cash.setOnClickListener {
             val nextIntent = Intent(this, BasketActivity::class.java)
-            nextIntent.putExtra("장바구니정보","스타벅스")
             startActivity(nextIntent)
         }
 
         order_state.setOnClickListener {
             val nextIntent = Intent(this, OrderStateActivity::class.java)
-            nextIntent.putExtra("주문상태","아메리카노")
             startActivity(nextIntent)
         }
 

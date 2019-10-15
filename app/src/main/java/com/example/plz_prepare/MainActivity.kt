@@ -34,5 +34,14 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("CategoryPosition",position)
             startActivity(intent)
         }
+
+        order_.setOnClickListener {
+            val nextIntent = Intent(this, OrderActivity::class.java)
+            startActivity(nextIntent)
+        }
+
+        location_icon.setOnClickListener {
+            Intent(this, LocationActivity::class.java)
+        }
     }
 }
