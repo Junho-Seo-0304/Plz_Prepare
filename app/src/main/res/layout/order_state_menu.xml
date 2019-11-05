@@ -21,10 +21,9 @@
 
     <TextView
         android:id="@+id/order_state_res_name"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginLeft="10dp"
-        android:gravity="center"
         android:text="스타벅스"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@id/order_state_res_imageview"
@@ -32,15 +31,18 @@
         app:layout_constraintRight_toLeftOf="@id/menu_num_list"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
+    <TextView
         android:id="@+id/menu_num_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginLeft="10dp"
+        android:gravity="center"
+        android:text="메뉴 목록"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/order_state_res_imageview"
         app:layout_constraintRight_toLeftOf="@id/O_S_M_ConstraitLayout2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/order_state_res_name" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/O_S_M_ConstraitLayout2"
@@ -51,11 +53,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/menu_num_list"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/order_state_res_name">
 
 
-        <Button
-            android:id="@+id/convert_button"
+        <TextView
+            android:id="@+id/number"
             android:layout_width="50dp"
             android:layout_height="20dp"
             android:gravity="center"
@@ -68,13 +70,13 @@
 
         <Button
             android:id="@+id/cancel_button"
-            android:layout_width="50dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:text="주문취소"
-            android:textSize="12sp"
+            android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/convert_button"
+            app:layout_constraintLeft_toRightOf="@id/number"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/state_text" />
 
@@ -85,10 +87,10 @@
             android:gravity="center"
             android:text="수락대기중"
             android:textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@id/convert_button"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="10dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

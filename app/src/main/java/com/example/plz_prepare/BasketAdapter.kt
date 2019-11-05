@@ -8,9 +8,11 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import com.google.firebase.auth.FirebaseAuth
 
 class BasketAdapter(val ctxt : Context, val layoutId : Int, val orderList : List<Order>)
     : ArrayAdapter<Order>(ctxt,layoutId,orderList){
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val layoutInflater : LayoutInflater = LayoutInflater.from(ctxt)
         val view : View = layoutInflater.inflate(layoutId,null)

@@ -108,6 +108,7 @@ class ChoiceRestaurantActivity : AppCompatActivity() {
             intent.putExtra("Category",CList[CP])
             intent.putExtra("uid",uidList[position])
             startActivity(intent)
+            finish()
         }
     }
 }
