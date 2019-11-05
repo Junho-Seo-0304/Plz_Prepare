@@ -25,6 +25,15 @@ class ChoiceRestaurantActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choice_restaurant)
 
+        order_.setOnClickListener {
+            val nextIntent = Intent(this, OrderActivity::class.java)
+            startActivity(nextIntent)
+        }
+
+        location_icon.setOnClickListener {
+            Intent(this, LocationActivity::class.java)
+        }
+
         RestaurantList = mutableListOf()
         uidList = mutableListOf()
         database=FirebaseDatabase.getInstance().reference.child("Users").child(CList[CP])
