@@ -29,7 +29,6 @@ class BasketActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
         listView = findViewById(R.id.basket_menu_list)
         listView.adapter = BasketAdapter(this,R.layout.basketed_menu,orderList)
-
         var cashBtn = findViewById<Button>(R.id.cash_button)
 
         cashBtn.setOnClickListener {
@@ -68,20 +67,27 @@ class BasketActivity : AppCompatActivity() {
                         }
                     }
                     else {
-                        database.child("PermissionOrder").child("101").setValue(orderList)
-                            .addOnSuccessListener {
-                                Toast.makeText(baseContext,"신청이 완료 되었습니다. 주문 내역에서 결과를 확인해주세요.",Toast.LENGTH_LONG).show()
-                            }
-                        database.child("PermissionOrder").child("101").child("Customer").setValue(mAuth.currentUser!!.uid)
-                        database.child("UsedNum").setValue(101)
-                        number=101
-                        Complete=true
-                        val intent = Intent(baseContext,OrderStateActivity::class.java)
-                        intent.putExtra("Category",category)
-                        intent.putExtra("uid",uid)
-                        intent.putExtra("Number",number)
-                        startActivity(intent)
-                        finish()
+                        if(Complete==false) {
+                            database.child("PermissionOrder").child("101").setValue(orderList)
+                                .addOnSuccessListener {
+                                    Toast.makeText(
+                                        baseContext,
+                                        "신청이 완료 되었습니다. 주문 내역에서 결과를 확인해주세요.",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                            database.child("PermissionOrder").child("101").child("Customer")
+                                .setValue(mAuth.currentUser!!.uid)
+                            database.child("UsedNum").setValue(101)
+                            number = 101
+                            Complete = true
+                            val intent = Intent(baseContext, OrderStateActivity::class.java)
+                            intent.putExtra("Category", category)
+                            intent.putExtra("uid", uid)
+                            intent.putExtra("Number", number)
+                            startActivity(intent)
+                            finish()
+                        }
                     }
                 }
             })
