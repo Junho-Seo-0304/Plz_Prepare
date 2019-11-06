@@ -29,6 +29,8 @@ class MainActivity : AppCompatActivity() {
         val CAdapter = CategoryAdapter(this,categoryList)
         Cgrid.adapter=CAdapter
 
+        var order_ = findViewById<ImageView>(R.id.order_)
+
         Cgrid.setOnItemClickListener { parent, view, position, id ->
             val intent = Intent(this,ChoiceRestaurantActivity::class.java)
             intent.putExtra("CategoryPosition",position)
@@ -36,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         order_.setOnClickListener {
-            val nextIntent = Intent(this, OrderActivity::class.java)
+            val nextIntent = Intent(this, OrderStateActivity::class.java)
             startActivity(nextIntent)
         }
 
