@@ -1,6 +1,7 @@
 package com.example.plz_prepare
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +29,7 @@ class OrderStateMenuAdapter(val ctxt : Context, val layoutId : Int, val RouteLis
         val StateText = view.findViewById<TextView>(R.id.state_text)
         val Cancelbtn = view.findViewById<Button>(R.id.cancel_button)
         var state : String? = null
-        firebase=FirebaseDatabase.getInstance().reference.child("Users").child(RouteList[position].Category).child(RouteList[position].Uid)
+        firebase=FirebaseDatabase.getInstance().reference.child("Users").child(RouteList[position].Category!!).child(RouteList[position].Uid!!)
         mAuth = FirebaseAuth.getInstance()
         firebase.addValueEventListener(object : ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {

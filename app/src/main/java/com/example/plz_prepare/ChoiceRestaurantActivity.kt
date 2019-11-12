@@ -58,38 +58,38 @@ class ChoiceRestaurantActivity : AppCompatActivity() {
         c1.setOnClickListener{
             val intent = Intent(this,ChoiceRestaurantActivity::class.java)
             intent.putExtra("CategoryPosition",0)
-            startActivity(intent)
-            finish()
+            setResult(2,intent)
+            startActivityForResult(intent,2)
         }
         c2.setOnClickListener{
             val intent = Intent(this,ChoiceRestaurantActivity::class.java)
             intent.putExtra("CategoryPosition",1)
-            startActivity(intent)
-            finish()
+            setResult(2,intent)
+            startActivityForResult(intent,2)
         }
         c3.setOnClickListener{
             val intent = Intent(this,ChoiceRestaurantActivity::class.java)
             intent.putExtra("CategoryPosition",2)
-            startActivity(intent)
-            finish()
+            setResult(2,intent)
+            startActivityForResult(intent,2)
         }
         c4.setOnClickListener{
             val intent = Intent(this,ChoiceRestaurantActivity::class.java)
             intent.putExtra("CategoryPosition",3)
-            startActivity(intent)
-            finish()
+            setResult(2,intent)
+            startActivityForResult(intent,2)
         }
         c5.setOnClickListener{
             val intent = Intent(this,ChoiceRestaurantActivity::class.java)
             intent.putExtra("CategoryPosition",4)
-            startActivity(intent)
-            finish()
+            setResult(2,intent)
+            startActivityForResult(intent,2)
         }
         c6.setOnClickListener{
             val intent = Intent(this,ChoiceRestaurantActivity::class.java)
             intent.putExtra("CategoryPosition",5)
-            startActivity(intent)
-            finish()
+            setResult(2,intent)
+            startActivityForResult(intent,2)
         }
         database.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
@@ -116,7 +116,22 @@ class ChoiceRestaurantActivity : AppCompatActivity() {
             val intent = Intent(this,RestaurantActivity::class.java)
             intent.putExtra("Category",CList[CP])
             intent.putExtra("uid",uidList[position])
-            startActivity(intent)
+            startActivityForResult(intent,1)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode==1&&resultCode==1&&data!=null){
+            val intent = Intent(this,MainActivity::class.java)
+            intent.putExtra("NewRoute",data.extras!!.get("NewRoute") as CheckingRoute)
+            setResult(1,intent)
+            finish()
+        }
+        if(requestCode==2&&resultCode==2&&data!=null){
+            val intent = Intent(this,MainActivity::class.java)
+            intent.putExtra("NewRoute",data.extras!!.get("NewRoute") as CheckingRoute)
+            setResult(1,intent)
             finish()
         }
     }

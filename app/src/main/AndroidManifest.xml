@@ -9,6 +9,9 @@
         android:roundIcon="@mipmap/ic_food_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDIHAwLYa26rs6PTjd9YUyOM8mUeUAuy8I"/>
         <activity android:name=".CheckingLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

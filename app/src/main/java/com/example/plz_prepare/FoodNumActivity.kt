@@ -16,6 +16,7 @@ class FoodNumActivity : AppCompatActivity() {
     val food by lazy {intent.extras!!["Food"] as Menu}
     val category by lazy { intent.extras!!["Category"] as String }
     val uid by lazy {intent.extras!!["uid"] as String}
+    val pushed by lazy { intent.extras!!["Pushed"] as Int }
     var num : Int = 0
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +39,7 @@ class FoodNumActivity : AppCompatActivity() {
         foodQuantity.text=num.toString()
 
         button.setOnClickListener{
-            val numIntent = Intent(this,Restaurant::class.java)
+            val numIntent = Intent(this,RestaurantActivity::class.java)
             var order = Order(food,num)
             numIntent.putExtra("Order",order)
             setResult(1,numIntent)
@@ -52,8 +53,8 @@ class FoodNumActivity : AppCompatActivity() {
             intent.putExtra("Category",category)
             intent.putExtra("uid",uid)
             intent.putExtra("OrderList",orderList)
-            startActivity(intent)
-            finish()
+            intent.putExtra("Pushed",pushed)
+            startActivityForResult(intent,2)
         }
 
         minusButton.setOnClickListener {
@@ -69,5 +70,15 @@ class FoodNumActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode==2&&resultCode==2&&data!=null){
+            val intent = Intent(this,RestaurantActivity::class.java)
+            intent.putExtra("NewRoute",data.extras!!.get("NewRoute") as CheckingRoute)
+            setResult(2,intent)
+            finish()
+        }
     }
 }

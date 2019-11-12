@@ -20,6 +20,7 @@ class RestaurantActivity : AppCompatActivity() {
     lateinit var listView : ListView
     var orderList = arrayListOf<Order>()
     var priceState = 0
+    var pushBtn = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +61,9 @@ class RestaurantActivity : AppCompatActivity() {
             intent.putExtra("Food", foodsList[position])
             intent.putExtra("Category",category)
             intent.putExtra("uid",uid)
-            startActivityForResult(intent, 1)
+            pushBtn = 2
+            intent.putExtra("Pushed",pushBtn)
+            startActivityForResult(intent, 2)
         }
 
 
@@ -71,14 +74,21 @@ class RestaurantActivity : AppCompatActivity() {
             intent.putExtra("Category",category)
             intent.putExtra("uid",uid)
             intent.putExtra("OrderList",orderList)
-            startActivity(intent)
-            finish()
+            pushBtn = 1
+            intent.putExtra("Pushed",pushBtn)
+            startActivityForResult(intent,1)
         }
 
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-            if(requestCode==1){
+        if (requestCode==1&&resultCode==1&&data!=null){
+            val intent = Intent(this,ChoiceRestaurantActivity::class.java)
+            intent.putExtra("NewRoute",data.extras!!.get("NewRoute") as CheckingRoute)
+            setResult(1,intent)
+            finish()
+        }
+            if(requestCode==2){
                 if(resultCode==1&&data!=null) {
                     val newOrder = data.extras!!.get("Order") as Order
                     orderList.add(newOrder)
@@ -89,8 +99,10 @@ class RestaurantActivity : AppCompatActivity() {
                     }
                     cash_button.text = priceState.toString() + "원 결제하기"
                 }
-
-                else{
+                if (resultCode==2&&data!=null){
+                    val intent = Intent(this,ChoiceRestaurantActivity::class.java)
+                    intent.putExtra("NewRoute",data.extras!!.get("NewRoute") as CheckingRoute)
+                    setResult(1,intent)
                     finish()
                 }
             }

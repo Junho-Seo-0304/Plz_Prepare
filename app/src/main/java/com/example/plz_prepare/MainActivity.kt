@@ -14,6 +14,7 @@ import kotlin.collections.ArrayList
 class MainActivity : AppCompatActivity() {
 
     val categoryList = ArrayList<Category>()
+    var routeArrayList = arrayListOf<CheckingRoute>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,16 +35,29 @@ class MainActivity : AppCompatActivity() {
         Cgrid.setOnItemClickListener { parent, view, position, id ->
             val intent = Intent(this,ChoiceRestaurantActivity::class.java)
             intent.putExtra("CategoryPosition",position)
-            startActivity(intent)
+            startActivityForResult(intent,1)
         }
 
         order_.setOnClickListener {
-            val nextIntent = Intent(this, OrderStateActivity::class.java)
-            startActivity(nextIntent)
+            val intent = Intent(this, OrderStateActivity::class.java)
+            intent.putExtra("Route", routeArrayList)
+            startActivityForResult(intent, 2)
         }
 
         location_icon.setOnClickListener {
             Intent(this, LocationActivity::class.java)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode==1&&resultCode==1&&data!=null){
+            val newRoute = data.extras!!.get("NewRoute") as CheckingRoute
+            routeArrayList.add(newRoute)
+        }
+        if(requestCode==2&&resultCode==2&&data!=null){
+            val newRoute = data.extras!!.get("NewRoute") as ArrayList<CheckingRoute>
+            routeArrayList = newRoute
         }
     }
 }

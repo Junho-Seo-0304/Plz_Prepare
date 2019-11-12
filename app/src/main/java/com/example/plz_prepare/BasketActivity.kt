@@ -1,5 +1,6 @@
 package com.example.plz_prepare
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -16,6 +17,7 @@ class BasketActivity : AppCompatActivity() {
     val category by lazy { intent.extras!!["Category"] as String }
     val uid by lazy {intent.extras!!["uid"] as String}
     val orderList by lazy { intent.extras!!["OrderList"] as ArrayList<Order> }
+    val pushed by lazy { intent.extras!!["Pushed"] as Int }
     private lateinit var database : DatabaseReference
     private lateinit var mAuth : FirebaseAuth
     lateinit var listView : ListView
@@ -58,12 +60,19 @@ class BasketActivity : AppCompatActivity() {
                                 .child("Customer").setValue(mAuth.currentUser!!.uid)
                             database.child("UsedNum").setValue(number)
                             Complete=true
-                            val intent = Intent(baseContext,OrderStateActivity::class.java)
-                            intent.putExtra("Category",category)
-                            intent.putExtra("uid",uid)
-                            intent.putExtra("Number",number)
-                            startActivity(intent)
-                            finish()
+                            if (pushed==1) {
+                                val intent = Intent(baseContext, RestaurantActivity::class.java)
+                                val newRoute = CheckingRoute(category, uid, number)
+                                intent.putExtra("NewRoute", newRoute)
+                                setResult(1, intent)
+                                finish()
+                            } else{
+                                val intent = Intent(baseContext, FoodNumActivity::class.java)
+                                val newRoute = CheckingRoute(category, uid, number)
+                                intent.putExtra("NewRoute", newRoute)
+                                setResult(2, intent)
+                                finish()
+                            }
                         }
                     }
                     else {
@@ -81,12 +90,19 @@ class BasketActivity : AppCompatActivity() {
                             database.child("UsedNum").setValue(101)
                             number = 101
                             Complete = true
-                            val intent = Intent(baseContext, OrderStateActivity::class.java)
-                            intent.putExtra("Category", category)
-                            intent.putExtra("uid", uid)
-                            intent.putExtra("Number", number)
-                            startActivity(intent)
-                            finish()
+                            if (pushed==1) {
+                                val intent = Intent(baseContext, RestaurantActivity::class.java)
+                                val newRoute = CheckingRoute(category, uid, number)
+                                intent.putExtra("NewRoute", newRoute)
+                                setResult(1, intent)
+                                finish()
+                            } else{
+                                val intent = Intent(baseContext, FoodNumActivity::class.java)
+                                val newRoute = CheckingRoute(category, uid, number)
+                                intent.putExtra("NewRoute", newRoute)
+                                setResult(2, intent)
+                                finish()
+                            }
                         }
                     }
                 }
