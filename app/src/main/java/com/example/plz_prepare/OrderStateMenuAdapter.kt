@@ -38,8 +38,7 @@ class OrderStateMenuAdapter(val ctxt : Context, val layoutId : Int, val RouteLis
 
             override fun onDataChange(p0: DataSnapshot) {
                 if (CheckDelete==false) {
-                    if (p0.child("PermissionOrder").child(RouteList[position].Number.toString()).child(
-                            "Customer"
+                    if (p0.child("PermissionOrder").child(RouteList[position].Number.toString()).child("Customer"
                         ).value == mAuth.currentUser!!.uid
                     ) {
                         Rname.text = p0.child("rname").value.toString()

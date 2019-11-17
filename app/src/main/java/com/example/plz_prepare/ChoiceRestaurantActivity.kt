@@ -26,7 +26,7 @@ class ChoiceRestaurantActivity : AppCompatActivity() {
         setContentView(R.layout.activity_choice_restaurant)
 
         order_.setOnClickListener {
-            val nextIntent = Intent(this, OrderActivity::class.java)
+            val nextIntent = Intent(this, OrderStateActivity::class.java)
             startActivity(nextIntent)
         }
 
