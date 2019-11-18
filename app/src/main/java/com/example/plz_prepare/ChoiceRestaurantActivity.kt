@@ -99,6 +99,7 @@ class ChoiceRestaurantActivity : AppCompatActivity() {
             override fun onDataChange(p0: DataSnapshot) {
                 if(p0.exists()){
                     RestaurantList.clear()
+                    uidList.clear()
                     for(e in p0.children){
                         if(e.exists()) {
                             val restaurant = e.getValue(Restaurant::class.java)!!
@@ -106,7 +107,7 @@ class ChoiceRestaurantActivity : AppCompatActivity() {
                             uidList.add(e.key)
                         }
                     }
-                    val adapter = RestaurantListAdapter(this@ChoiceRestaurantActivity,R.layout.restaurant,RestaurantList)
+                    val adapter = RestaurantListAdapter(this@ChoiceRestaurantActivity,R.layout.restaurant,RestaurantList,uidList)
                     listView.adapter = adapter
                 }
             }

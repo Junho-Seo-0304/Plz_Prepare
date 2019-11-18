@@ -21,20 +21,26 @@ class CheckingLogin : AppCompatActivity() {
             finish()
 
         } else {
-            mAuth.signInAnonymously()
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        Toast.makeText(
-                            baseContext, "Authentication failed.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
+           signIn()
         }
+    }
+
+    fun signIn(){
+        mAuth = FirebaseAuth.getInstance()
+        mAuth.signInAnonymously()
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    Toast.makeText(
+                        baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    signIn()
+                }
+            }
     }
 }
 

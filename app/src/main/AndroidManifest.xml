@@ -9,23 +9,25 @@
         android:roundIcon="@mipmap/ic_food_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".RejectedReasonActivity"></activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDIHAwLYa26rs6PTjd9YUyOM8mUeUAuy8I"/>
+            android:value="AIzaSyDIHAwLYa26rs6PTjd9YUyOM8mUeUAuy8I" />
+
         <activity android:name=".CheckingLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".ChoiceRestaurantActivity" />
         <activity android:name=".RestaurantActivity" />
         <activity android:name=".FoodNumActivity" />
-        <activity android:name=".OrderActivity" />
         <activity android:name=".OrderStateActivity" />
         <activity android:name=".BasketActivity" />
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

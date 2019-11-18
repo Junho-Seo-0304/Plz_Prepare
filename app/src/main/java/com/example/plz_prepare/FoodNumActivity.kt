@@ -5,10 +5,8 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.NumberPicker
-import android.widget.TextView
+import android.widget.*
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_food_num.*
 
 class FoodNumActivity : AppCompatActivity() {
@@ -33,28 +31,38 @@ class FoodNumActivity : AppCompatActivity() {
         var button = findViewById<Button>(R.id.button)
         var cashBtn = findViewById<Button>(R.id.cash)
 
+        var storageRef = FirebaseStorage.getInstance().getReference(uid+"/"+food.Fname)
+        GlideApp.with(this).load(storageRef).into(imgView)
         foodName.text=food.Fname
         foodPrice.text=food.Fprice.toString()
         foodExplain.text=food.Fexplain
         foodQuantity.text=num.toString()
 
         button.setOnClickListener{
-            val numIntent = Intent(this,RestaurantActivity::class.java)
-            var order = Order(food,num)
-            numIntent.putExtra("Order",order)
-            setResult(1,numIntent)
-            finish()
+            if(num>0) {
+                val numIntent = Intent(this, RestaurantActivity::class.java)
+                var order = Order(food, num)
+                numIntent.putExtra("Order", order)
+                setResult(1, numIntent)
+                finish()
+            } else{
+                Toast.makeText(this,"주문할 수량을 확인해주세요.",Toast.LENGTH_SHORT).show()
+            }
         }
 
         cashBtn.setOnClickListener {
-            val intent = Intent(this,BasketActivity::class.java)
-            var orderList = arrayListOf<Order>()
-            orderList.add(Order(food,num))
-            intent.putExtra("Category",category)
-            intent.putExtra("uid",uid)
-            intent.putExtra("OrderList",orderList)
-            intent.putExtra("Pushed",pushed)
-            startActivityForResult(intent,2)
+            if(num>0) {
+                val intent = Intent(this, BasketActivity::class.java)
+                var orderList = arrayListOf<Order>()
+                orderList.add(Order(food, num))
+                intent.putExtra("Category", category)
+                intent.putExtra("uid", uid)
+                intent.putExtra("OrderList", orderList)
+                intent.putExtra("Pushed", pushed)
+                startActivityForResult(intent, 2)
+            } else{
+                Toast.makeText(this,"주문할 수량을 확인해주세요.",Toast.LENGTH_SHORT).show()
+            }
         }
 
         minusButton.setOnClickListener {

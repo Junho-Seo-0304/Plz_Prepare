@@ -50,7 +50,7 @@ class RestaurantActivity : AppCompatActivity() {
                             foodsList.add(food)
                         }
                     }
-                    val adapter = MenuAdapter(this@RestaurantActivity,R.layout.menu,foodsList)
+                    val adapter = MenuAdapter(this@RestaurantActivity,R.layout.menu,foodsList,uid)
                     listView.adapter = adapter
                 }
             }
@@ -70,13 +70,18 @@ class RestaurantActivity : AppCompatActivity() {
         button.text = priceState.toString() + "원 결제하기"
 
         button.setOnClickListener {
-            val intent = Intent(this,BasketActivity::class.java)
-            intent.putExtra("Category",category)
-            intent.putExtra("uid",uid)
-            intent.putExtra("OrderList",orderList)
-            pushBtn = 1
-            intent.putExtra("Pushed",pushBtn)
-            startActivityForResult(intent,1)
+            if(priceState>0) {
+                val intent = Intent(this, BasketActivity::class.java)
+                intent.putExtra("Category", category)
+                intent.putExtra("uid", uid)
+                intent.putExtra("OrderList", orderList)
+                pushBtn = 1
+                intent.putExtra("Pushed", pushBtn)
+                startActivityForResult(intent, 1)
+            }
+            else{
+                Toast.makeText(this,"주문할 음식이 없습니다.\n다시 확인해주세요.",Toast.LENGTH_SHORT).show()
+            }
         }
 
     }

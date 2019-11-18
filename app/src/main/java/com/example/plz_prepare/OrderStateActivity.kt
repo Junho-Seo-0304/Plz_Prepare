@@ -13,28 +13,68 @@ class OrderStateActivity: AppCompatActivity() {
 
     private lateinit var database : DatabaseReference
     private lateinit var mAuth : FirebaseAuth
+    var checkRoute = arrayListOf<CheckingRoute>()
     var changeRoute = arrayListOf<CheckingRoute>()
-
+    var Menulist = arrayListOf<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order_state)
         if(intent!=null){
             val routeArrayList by lazy { intent.extras!!["Route"] as ArrayList<CheckingRoute>}
-            changeRoute = routeArrayList
+            checkRoute=routeArrayList
         }
         database = FirebaseDatabase.getInstance().reference.child("Users")
         mAuth = FirebaseAuth.getInstance()
+        var CheckingList = findViewById<ListView>(R.id.order_state_menu_list)
         database.addValueEventListener(object : ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
             override fun onDataChange(p0: DataSnapshot) {
-                if(p0.child(""))
+                changeRoute.clear()
+                Menulist.clear()
+                for (i in 0 until checkRoute.size){
+                    if(p0.child(checkRoute[i].Category.toString()).child(checkRoute[i].Uid.toString()).child("PermissionOrder").child(checkRoute[i].Number.toString()).child("Customer").value==mAuth.currentUser!!.uid){
+                        changeRoute.add(CheckingRoute(checkRoute[i].Category,checkRoute[i].Uid,checkRoute[i].Number,"PermissionOrder"))
+                        var totalString = ""
+                        for (j in 1 until p0.child(checkRoute[i].Category.toString()).child(checkRoute[i].Uid.toString()).child("PermissionOrder").child(checkRoute[i].Number.toString()).childrenCount) {
+                            totalString += p0.child(checkRoute[i].Category.toString()).child(checkRoute[i].Uid.toString()).child("PermissionOrder").child(checkRoute[i].Number.toString()).child(
+                                (j - 1).toString()
+                            ).child("food").child("fname").value.toString() + " : " + p0.child(checkRoute[i].Category.toString()).child(checkRoute[i].Uid.toString()).child("PermissionOrder").child(
+                                checkRoute[i].Number.toString()
+                            ).child((j - 1).toString()).child("num").value.toString() + "\n"
+                        }
+                        Menulist.add(totalString)
+                    }
+                    else if (p0.child(checkRoute[i].Category.toString()).child(checkRoute[i].Uid.toString()).child("ReadyOrder").child(checkRoute[i].Number.toString()).child("Customer").value==mAuth.currentUser!!.uid){
+                        changeRoute.add(CheckingRoute(checkRoute[i].Category,checkRoute[i].Uid,checkRoute[i].Number,"ReadyOrder"))
+                        var totalString = ""
+                        for (j in 1 until p0.child(checkRoute[i].Category.toString()).child(checkRoute[i].Uid.toString()).child("ReadyOrder").child(checkRoute[i].Number.toString()).childrenCount) {
+                            totalString += p0.child(checkRoute[i].Category.toString()).child(checkRoute[i].Uid.toString()).child("ReadyOrder").child(checkRoute[i].Number.toString()).child(
+                                (j - 1).toString()
+                            ).child("food").child("fname").value.toString() + " : " + p0.child(checkRoute[i].Category.toString()).child(checkRoute[i].Uid.toString()).child("ReadyOrder").child(
+                                checkRoute[i].Number.toString()
+                            ).child((j - 1).toString()).child("num").value.toString() + "\n"
+                        }
+                        Menulist.add(totalString)
+                    }
+                    else if (p0.child(checkRoute[i].Category.toString()).child(checkRoute[i].Uid.toString()).child("RejectedOrder").child(checkRoute[i].Number.toString()).child("Customer").value==mAuth.currentUser!!.uid){
+                        changeRoute.add(CheckingRoute(checkRoute[i].Category,checkRoute[i].Uid,checkRoute[i].Number,"RejectedOrder"))
+                        var totalString = ""
+                        for (j in 1 until p0.child(checkRoute[i].Category.toString()).child(checkRoute[i].Uid.toString()).child("RejectedOrder").child(checkRoute[i].Number.toString()).childrenCount) {
+                            totalString += p0.child(checkRoute[i].Category.toString()).child(checkRoute[i].Uid.toString()).child("RejectedOrder").child(checkRoute[i].Number.toString()).child(
+                                (j - 1).toString()
+                            ).child("food").child("fname").value.toString() + " : " + p0.child(checkRoute[i].Category.toString()).child(checkRoute[i].Uid.toString()).child("RejectedOrder").child(
+                                checkRoute[i].Number.toString()
+                            ).child((j - 1).toString()).child("num").value.toString() + "\n"
+                        }
+                        Menulist.add(totalString)
+                    }
+                }
+                CheckingList.adapter = OrderStateMenuAdapter(baseContext,R.layout.order_state_menu,changeRoute,Menulist)
             }
         })
-        var CheckingList = findViewById<ListView>(R.id.order_state_menu_list)
-        CheckingList.adapter = OrderStateMenuAdapter(this,R.layout.order_state_menu,changeRoute)
     }
 
     override fun onBackPressed() {

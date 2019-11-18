@@ -6,12 +6,14 @@ import android.os.Parcelable
 class CheckingRoute(
     val Category: String?,
     val Uid: String?,
-    val Number: Int
+    val Number: Int,
+    var State: String? = null
 ) : Parcelable {
     constructor(source: Parcel) : this(
         source.readString(),
         source.readString(),
-        source.readInt()
+        source.readInt(),
+        source.readString()
     )
 
     override fun describeContents() = 0
@@ -20,6 +22,7 @@ class CheckingRoute(
         writeString(Category)
         writeString(Uid)
         writeInt(Number)
+        writeString(State)
     }
 
     companion object {
