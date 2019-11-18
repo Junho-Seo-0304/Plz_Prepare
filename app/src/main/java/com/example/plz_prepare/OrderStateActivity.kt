@@ -50,7 +50,7 @@ class OrderStateActivity: AppCompatActivity() {
                     else if (p0.child(checkRoute[i].Category.toString()).child(checkRoute[i].Uid.toString()).child("ReadyOrder").child(checkRoute[i].Number.toString()).child("Customer").value==mAuth.currentUser!!.uid){
                         changeRoute.add(CheckingRoute(checkRoute[i].Category,checkRoute[i].Uid,checkRoute[i].Number,"ReadyOrder"))
                         var totalString = ""
-                        for (j in 1 until p0.child(checkRoute[i].Category.toString()).child(checkRoute[i].Uid.toString()).child("ReadyOrder").child(checkRoute[i].Number.toString()).childrenCount) {
+                        for (j in 1 until p0.child(checkRoute[i].Category.toString()).child(checkRoute[i].Uid.toString()).child("ReadyOrder").child(checkRoute[i].Number.toString()).childrenCount-1) {
                             totalString += p0.child(checkRoute[i].Category.toString()).child(checkRoute[i].Uid.toString()).child("ReadyOrder").child(checkRoute[i].Number.toString()).child(
                                 (j - 1).toString()
                             ).child("food").child("fname").value.toString() + " : " + p0.child(checkRoute[i].Category.toString()).child(checkRoute[i].Uid.toString()).child("ReadyOrder").child(
