@@ -44,9 +44,6 @@ class MainActivity : AppCompatActivity() {
             startActivityForResult(intent, 2)
         }
 
-        location_icon.setOnClickListener {
-            Intent(this, LocationActivity::class.java)
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

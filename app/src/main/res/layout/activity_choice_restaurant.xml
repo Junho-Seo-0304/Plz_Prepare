@@ -51,17 +51,6 @@
             app:layout_constraintTop_toBottomOf="@id/order_bar" />
 
         <ImageView
-            android:id="@+id/order_"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_margin="10dp"
-            android:clickable="true"
-            android:src="@drawable/menu_order"
-            app:layout_constraintBottom_toTopOf="@id/location_bar"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
             android:id="@+id/location_icon"
             android:layout_width="35dp"
             android:layout_height="0dp"

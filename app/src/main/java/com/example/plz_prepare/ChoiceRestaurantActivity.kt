@@ -2,12 +2,18 @@ package com.example.plz_prepare
 
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
+import android.provider.Telephony
 import android.widget.ListView
 import android.widget.TextView
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import com.google.android.gms.location.LocationServices
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_choice_restaurant.*
 
@@ -16,37 +22,37 @@ class ChoiceRestaurantActivity : AppCompatActivity() {
 
     val CP by lazy { intent.extras!!["CategoryPosition"] as Int }
     private lateinit var database : DatabaseReference
-    lateinit var RestaurantList:MutableList<Restaurant>
-    lateinit var uidList:MutableList<String?>
-    lateinit var listView : ListView
+    var RestaurantList = arrayListOf<Restaurant>()
+    var uidList = arrayListOf<String>()
     val CList : Array<String> = arrayOf("한식","중식","일식","양식","패스트푸드","카페")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choice_restaurant)
 
-        order_.setOnClickListener {
-            val nextIntent = Intent(this, OrderStateActivity::class.java)
-            startActivity(nextIntent)
+        var locationBar = findViewById<TextView>(R.id.location_bar)
+        var geocoder = Geocoder(this)
+        var location = listOf<Address>()
+        locationBar.setOnClickListener {
+            val intent = Intent(this, MapsActivity::class.java)
+            startActivityForResult(intent,2)
+        }
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            locationBar.text = "현재 위치를 찾을 수 없습니다."
+        } else{
+            var fusedLocationClient  = LocationServices.getFusedLocationProviderClient(this)
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener {
+                    location = geocoder.getFromLocation(it.latitude,it.longitude,1)
+                }
+            locationBar.text = location[0].adminArea + " " + location[0].locality + " " + location[0].thoroughfare
         }
 
-        location_icon.setOnClickListener {
-            Intent(this, LocationActivity::class.java)
-        }
 
-        RestaurantList = mutableListOf()
-        uidList = mutableListOf()
-        database=FirebaseDatabase.getInstance().reference.child("Users").child(CList[CP])
-        listView = findViewById(R.id.restraunt_list)
+        var category = CList[CP]
+        var listView = findViewById<ListView>(R.id.restraunt_list)
 
-        when(CP){
-            0 -> category_1.setBackgroundColor(Color.parseColor("#80FF0000"))
-            1 -> category_2.setBackgroundColor(Color.parseColor("#80FF0000"))
-            2 -> category_3.setBackgroundColor(Color.parseColor("#80FF0000"))
-            3 -> category_4.setBackgroundColor(Color.parseColor("#80FF0000"))
-            4 -> category_5.setBackgroundColor(Color.parseColor("#80FF0000"))
-            5 -> category_6.setBackgroundColor(Color.parseColor("#80FF0000"))
-        }
 
         var c1 = findViewById<TextView>(R.id.category_1)
         var c2 = findViewById<TextView>(R.id.category_2)
@@ -55,67 +61,47 @@ class ChoiceRestaurantActivity : AppCompatActivity() {
         var c5 = findViewById<TextView>(R.id.category_5)
         var c6 = findViewById<TextView>(R.id.category_6)
 
+        changeColor(category)
         c1.setOnClickListener{
-            val intent = Intent(this,ChoiceRestaurantActivity::class.java)
-            intent.putExtra("CategoryPosition",0)
-            setResult(2,intent)
-            startActivityForResult(intent,2)
+            category="한식"
+            resetColor()
+            changeColor(category)
+            changeListView(category,listView)
         }
         c2.setOnClickListener{
-            val intent = Intent(this,ChoiceRestaurantActivity::class.java)
-            intent.putExtra("CategoryPosition",1)
-            setResult(2,intent)
-            startActivityForResult(intent,2)
+            category="중식"
+            resetColor()
+            changeColor(category)
+            changeListView(category,listView)
         }
         c3.setOnClickListener{
-            val intent = Intent(this,ChoiceRestaurantActivity::class.java)
-            intent.putExtra("CategoryPosition",2)
-            setResult(2,intent)
-            startActivityForResult(intent,2)
+            category="일식"
+            resetColor()
+            changeColor(category)
+            changeListView(category,listView)
         }
         c4.setOnClickListener{
-            val intent = Intent(this,ChoiceRestaurantActivity::class.java)
-            intent.putExtra("CategoryPosition",3)
-            setResult(2,intent)
-            startActivityForResult(intent,2)
+            category="양식"
+            resetColor()
+            changeColor(category)
+            changeListView(category,listView)
         }
         c5.setOnClickListener{
-            val intent = Intent(this,ChoiceRestaurantActivity::class.java)
-            intent.putExtra("CategoryPosition",4)
-            setResult(2,intent)
-            startActivityForResult(intent,2)
+            category="패스트푸드"
+            resetColor()
+            changeColor(category)
+            changeListView(category,listView)
         }
         c6.setOnClickListener{
-            val intent = Intent(this,ChoiceRestaurantActivity::class.java)
-            intent.putExtra("CategoryPosition",5)
-            setResult(2,intent)
-            startActivityForResult(intent,2)
+            category="카페"
+            resetColor()
+            changeColor(category)
+            changeListView(category,listView)
         }
-        database.addValueEventListener(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-            override fun onDataChange(p0: DataSnapshot) {
-                if(p0.exists()){
-                    RestaurantList.clear()
-                    uidList.clear()
-                    for(e in p0.children){
-                        if(e.exists()) {
-                            val restaurant = e.getValue(Restaurant::class.java)!!
-                            RestaurantList.add(restaurant)
-                            uidList.add(e.key)
-                        }
-                    }
-                    val adapter = RestaurantListAdapter(this@ChoiceRestaurantActivity,R.layout.restaurant,RestaurantList,uidList)
-                    listView.adapter = adapter
-                }
-            }
-        })
 
         listView.setOnItemClickListener { parent, view, position, id ->
             val intent = Intent(this,RestaurantActivity::class.java)
-            intent.putExtra("Category",CList[CP])
+            intent.putExtra("Category",category)
             intent.putExtra("uid",uidList[position])
             startActivityForResult(intent,1)
         }
@@ -135,5 +121,50 @@ class ChoiceRestaurantActivity : AppCompatActivity() {
             setResult(1,intent)
             finish()
         }
+    }
+
+    private fun resetColor(){
+        category_1.setBackgroundColor(Color.parseColor("#A9EB8282"))
+        category_2.setBackgroundColor(Color.parseColor("#A9EB8282"))
+        category_3.setBackgroundColor(Color.parseColor("#A9EB8282"))
+        category_4.setBackgroundColor(Color.parseColor("#A9EB8282"))
+        category_5.setBackgroundColor(Color.parseColor("#A9EB8282"))
+        category_6.setBackgroundColor(Color.parseColor("#A9EB8282"))
+    }
+
+    private fun changeColor(category: String){
+        when(category){
+            "한식" -> category_1.setBackgroundColor(Color.parseColor("#80FF0000"))
+            "중식" -> category_2.setBackgroundColor(Color.parseColor("#80FF0000"))
+            "일식" -> category_3.setBackgroundColor(Color.parseColor("#80FF0000"))
+            "양식" -> category_4.setBackgroundColor(Color.parseColor("#80FF0000"))
+            "패스트푸드" -> category_5.setBackgroundColor(Color.parseColor("#80FF0000"))
+            "카페" -> category_6.setBackgroundColor(Color.parseColor("#80FF0000"))
+        }
+    }
+
+    private fun changeListView(category: String, listView : ListView){
+        database=FirebaseDatabase.getInstance().reference.child("Users").child(category)
+        database.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                if(p0.exists()){
+                    RestaurantList.clear()
+                    uidList.clear()
+                    for(e in p0.children){
+                        if(e.exists()) {
+                            val restaurant = e.getValue(Restaurant::class.java)!!
+                            RestaurantList.add(restaurant)
+                            uidList.add(e.key.toString())
+                        }
+                    }
+                    val adapter = RestaurantListAdapter(this@ChoiceRestaurantActivity,R.layout.restaurant,RestaurantList,uidList)
+                    listView.adapter = adapter
+                }
+            }
+        })
     }
 }

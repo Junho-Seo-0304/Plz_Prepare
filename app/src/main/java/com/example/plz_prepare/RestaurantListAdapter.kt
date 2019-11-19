@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 
-class RestaurantListAdapter(val ctxt : Context, val layoutId : Int, val restaurantList : List<Restaurant> , val uidList : MutableList<String?>)
+class RestaurantListAdapter(val ctxt : Context, val layoutId : Int, val restaurantList : ArrayList<Restaurant> , val uidList : ArrayList<String>)
     :ArrayAdapter<Restaurant>(ctxt,layoutId,restaurantList){
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val layoutInflater : LayoutInflater = LayoutInflater.from(ctxt)
