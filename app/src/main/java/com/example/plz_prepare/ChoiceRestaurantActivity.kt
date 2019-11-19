@@ -4,8 +4,7 @@ package com.example.plz_prepare
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.location.Address
-import android.location.Geocoder
+import android.location.*
 import android.os.Bundle
 import android.provider.Telephony
 import android.widget.ListView
@@ -13,12 +12,15 @@ import android.widget.TextView
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.google.android.gms.common.api.GoogleApi
+import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.LocationServices
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_choice_restaurant.*
 
 
-class ChoiceRestaurantActivity : AppCompatActivity() {
+class ChoiceRestaurantActivity : AppCompatActivity(){
 
     val CP by lazy { intent.extras!!["CategoryPosition"] as Int }
     private lateinit var database : DatabaseReference
@@ -31,22 +33,11 @@ class ChoiceRestaurantActivity : AppCompatActivity() {
         setContentView(R.layout.activity_choice_restaurant)
 
         var locationBar = findViewById<TextView>(R.id.location_bar)
-        var geocoder = Geocoder(this)
-        var location = listOf<Address>()
+
+        locationBar.text = "지도로 식당 찾기"
         locationBar.setOnClickListener {
             val intent = Intent(this, MapsActivity::class.java)
             startActivityForResult(intent,2)
-        }
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-            && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            locationBar.text = "현재 위치를 찾을 수 없습니다."
-        } else{
-            var fusedLocationClient  = LocationServices.getFusedLocationProviderClient(this)
-            fusedLocationClient.lastLocation
-                .addOnSuccessListener {
-                    location = geocoder.getFromLocation(it.latitude,it.longitude,1)
-                }
-            locationBar.text = location[0].adminArea + " " + location[0].locality + " " + location[0].thoroughfare
         }
 
 
