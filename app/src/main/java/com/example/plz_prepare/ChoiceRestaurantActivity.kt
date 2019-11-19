@@ -34,7 +34,7 @@ class ChoiceRestaurantActivity : AppCompatActivity(){
 
         var locationBar = findViewById<TextView>(R.id.location_bar)
 
-        locationBar.text = "지도로 식당 찾기"
+        locationBar.text = "지도로 식당 위치 보기"
         locationBar.setOnClickListener {
             val intent = Intent(this, MapsActivity::class.java)
             startActivityForResult(intent,2)

@@ -53,7 +53,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener{
      */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        googleMap.clear()
         var currentLocation = LatLng(LX,LY)
         mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation))
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation,15.toFloat()))
@@ -74,11 +73,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener{
             }
 
             override fun onDataChange(p0: DataSnapshot) {
+                googleMap.clear()
                 for(i in p0.children){
                     for(j in i.children){
                         val x = j.child("rlocationX").value.toString().toDouble()
                         val y = j.child("rlocationY").value.toString().toDouble()
-                        var marker = MarkerOptions().title(j.child("rname").value.toString()+"\n"+i.value.toString()).position(LatLng(x,y))
+                        var marker = MarkerOptions().title(j.child("rname").value.toString())
                         mMap.addMarker(marker)
                     }
                 }
