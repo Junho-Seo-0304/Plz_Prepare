@@ -3,9 +3,11 @@ package com.example.plz_prepare
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.*
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_food_num.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*

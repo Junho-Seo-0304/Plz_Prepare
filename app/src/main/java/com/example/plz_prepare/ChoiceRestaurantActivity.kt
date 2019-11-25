@@ -53,6 +53,7 @@ class ChoiceRestaurantActivity : AppCompatActivity(){
         var c6 = findViewById<TextView>(R.id.category_6)
 
         changeColor(category)
+        changeListView(category,listView)
         c1.setOnClickListener{
             category="한식"
             resetColor()

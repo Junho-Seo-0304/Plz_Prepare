@@ -18,7 +18,6 @@ class OrderStateMenuAdapter(val ctxt : Context, val layoutId : Int, val RouteLis
     private lateinit var firebase : DatabaseReference
     private lateinit var mAuth : FirebaseAuth
     var phoneNum : String? = null
-    var deleteNum : Int = 0
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val layoutInflater : LayoutInflater = LayoutInflater.from(ctxt)
@@ -63,7 +62,7 @@ class OrderStateMenuAdapter(val ctxt : Context, val layoutId : Int, val RouteLis
                 firebase.child("PermissionOrder").child(RouteList[position].Number.toString()).removeValue()
             }
             if(RouteList[position].State=="ReadyOrder"){
-                if(phoneNum!=null) {
+                if(phoneNum==null) {
                     Toast.makeText(ctxt, "수락 완료된 주문은 취소 할 수 없습니다.", Toast.LENGTH_LONG).show()
                 } else{
                     Toast.makeText(ctxt, "수락 완료된 주문은 취소 할 수 없습니다. \n " + phoneNum + "으로 전화해 요청해보세요.", Toast.LENGTH_LONG).show()
