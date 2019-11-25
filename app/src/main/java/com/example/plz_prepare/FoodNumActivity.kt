@@ -57,9 +57,9 @@ class FoodNumActivity : AppCompatActivity() {
                 orderList.add(Order(food, num))
                 intent.putExtra("Category", category)
                 intent.putExtra("uid", uid)
+                intent.putExtra("Pushed",pushed)
                 intent.putExtra("OrderList", orderList)
-                intent.putExtra("Pushed", pushed)
-                startActivityForResult(intent, 2)
+                startActivityForResult(intent, 1)
             } else{
                 Toast.makeText(this,"주문할 수량을 확인해주세요.",Toast.LENGTH_SHORT).show()
             }
@@ -82,9 +82,8 @@ class FoodNumActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode==2&&resultCode==2&&data!=null){
+        if (requestCode==1&&resultCode==2&&data!=null){
             val intent = Intent(this,RestaurantActivity::class.java)
-            intent.putExtra("NewRoute",data.extras!!.get("NewRoute") as CheckingRoute)
             setResult(2,intent)
             finish()
         }

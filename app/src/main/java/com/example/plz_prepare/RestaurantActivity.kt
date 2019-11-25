@@ -63,7 +63,7 @@ class RestaurantActivity : AppCompatActivity() {
             intent.putExtra("uid",uid)
             pushBtn = 2
             intent.putExtra("Pushed",pushBtn)
-            startActivityForResult(intent, 2)
+            startActivityForResult(intent, 1)
         }
 
 
@@ -77,7 +77,7 @@ class RestaurantActivity : AppCompatActivity() {
                 intent.putExtra("OrderList", orderList)
                 pushBtn = 1
                 intent.putExtra("Pushed", pushBtn)
-                startActivityForResult(intent, 1)
+                startActivity(intent)
             }
             else{
                 Toast.makeText(this,"주문할 음식이 없습니다.\n다시 확인해주세요.",Toast.LENGTH_SHORT).show()
@@ -87,13 +87,7 @@ class RestaurantActivity : AppCompatActivity() {
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode==1&&resultCode==1&&data!=null){
-            val intent = Intent(this,ChoiceRestaurantActivity::class.java)
-            intent.putExtra("NewRoute",data.extras!!.get("NewRoute") as CheckingRoute)
-            setResult(1,intent)
-            finish()
-        }
-            if(requestCode==2){
+            if(requestCode==1){
                 if(resultCode==1&&data!=null) {
                     val newOrder = data.extras!!.get("Order") as Order
                     orderList.add(newOrder)
@@ -105,9 +99,6 @@ class RestaurantActivity : AppCompatActivity() {
                     cash_button.text = priceState.toString() + "원 결제하기"
                 }
                 if (resultCode==2&&data!=null){
-                    val intent = Intent(this,ChoiceRestaurantActivity::class.java)
-                    intent.putExtra("NewRoute",data.extras!!.get("NewRoute") as CheckingRoute)
-                    setResult(1,intent)
                     finish()
                 }
             }

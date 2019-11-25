@@ -44,15 +44,15 @@ class OrderStateMenuAdapter(val ctxt : Context, val layoutId : Int, val RouteLis
         })
         if (RouteList[position].State=="PermissionOrder") {
             StateText.text = "수락대기중"
-            Number.text = RouteList[position].Number.toString()
+            Number.text = RouteList[position].Number
             Orderlist.text = MenuList[position]
         } else if (RouteList[position].State=="ReadyOrder") {
             StateText.text = "수락 완료"
-            Number.text = RouteList[position].Number.toString()
+            Number.text = RouteList[position].Number
             Orderlist.text = MenuList[position]
         } else if (RouteList[position].State=="RejectedOrder"){
             StateText.text = "주문 거절"
-            Number.text = RouteList[position].Number.toString()
+            Number.text = RouteList[position].Number
             Orderlist.text = "주문이 거절되었습니다."
             Cancelbtn.text = "거절 이유"
         }

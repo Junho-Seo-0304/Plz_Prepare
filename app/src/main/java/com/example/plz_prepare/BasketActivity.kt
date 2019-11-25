@@ -51,6 +51,7 @@ class BasketActivity : AppCompatActivity() {
 
                         if (p0.child("PermissionOrder").exists()) {
                             if (Complete == false) {
+
                                 var num: Int =
                                     Integer.parseInt(p0.child("UsedNum").value.toString())
                                 num++
@@ -75,20 +76,16 @@ class BasketActivity : AppCompatActivity() {
                                 Complete = true
                                 if (pushed == 1) {
                                     val intent = Intent(baseContext, RestaurantActivity::class.java)
-                                    val newRoute = CheckingRoute(category, uid, number)
-                                    intent.putExtra("NewRoute", newRoute)
                                     setResult(1, intent)
                                     finish()
                                 } else {
                                     val intent = Intent(baseContext, FoodNumActivity::class.java)
-                                    val newRoute = CheckingRoute(category, uid, number)
-                                    intent.putExtra("NewRoute", newRoute)
                                     setResult(2, intent)
                                     finish()
                                 }
                             }
                         } else {
-                            if(p0.child("ReadyOrder").exists()) {
+                            if (p0.child("ReadyOrder").exists()){
                                 if (Complete == false) {
 
                                     var num: Int =
@@ -115,56 +112,44 @@ class BasketActivity : AppCompatActivity() {
                                     Complete = true
                                     if (pushed == 1) {
                                         val intent = Intent(baseContext, RestaurantActivity::class.java)
-                                        val newRoute = CheckingRoute(category, uid, number)
-                                        intent.putExtra("NewRoute", newRoute)
                                         setResult(1, intent)
                                         finish()
                                     } else {
                                         val intent = Intent(baseContext, FoodNumActivity::class.java)
-                                        val newRoute = CheckingRoute(category, uid, number)
-                                        intent.putExtra("NewRoute", newRoute)
                                         setResult(2, intent)
                                         finish()
                                     }
                                 }
                             }else{
-                                if (Complete == false) {
-                                    FirebaseInstanceId.getInstance()
-                                        .instanceId.addOnSuccessListener {
-                                        val newToken = it.token
-                                        database.child("PermissionOrder").child("101")
-                                            .child("PushKey").setValue(newToken)
-                                    }
+                            if (Complete == false) {
+                                FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
+                                    val newToken = it.token
                                     database.child("PermissionOrder").child("101")
-                                        .setValue(orderList)
-                                        .addOnSuccessListener {
-                                            Toast.makeText(
-                                                baseContext,
-                                                "신청이 완료 되었습니다. 주문 내역에서 결과를 확인해주세요.",
-                                                Toast.LENGTH_LONG
-                                            ).show()
-                                        }
-                                    database.child("PermissionOrder").child("101").child("Customer")
-                                        .setValue(mAuth.currentUser!!.uid)
-                                    database.child("UsedNum").setValue(101)
-                                    number = 101
-                                    Complete = true
-                                    if (pushed == 1) {
-                                        val intent =
-                                            Intent(baseContext, RestaurantActivity::class.java)
-                                        val newRoute = CheckingRoute(category, uid, number)
-                                        intent.putExtra("NewRoute", newRoute)
-                                        setResult(1, intent)
-                                        finish()
-                                    } else {
-                                        val intent =
-                                            Intent(baseContext, FoodNumActivity::class.java)
-                                        val newRoute = CheckingRoute(category, uid, number)
-                                        intent.putExtra("NewRoute", newRoute)
-                                        setResult(2, intent)
-                                        finish()
-                                    }
+                                        .child("PushKey").setValue(newToken)
                                 }
+                                database.child("PermissionOrder").child("101").setValue(orderList)
+                                    .addOnSuccessListener {
+                                        Toast.makeText(
+                                            baseContext,
+                                            "신청이 완료 되었습니다. 주문 내역에서 결과를 확인해주세요.",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    }
+                                database.child("PermissionOrder").child("101").child("Customer")
+                                    .setValue(mAuth.currentUser!!.uid)
+                                database.child("UsedNum").setValue(101)
+                                number = 101
+                                Complete = true
+                                if (pushed == 1) {
+                                    val intent = Intent(baseContext, RestaurantActivity::class.java)
+                                    setResult(1, intent)
+                                    finish()
+                                } else {
+                                    val intent = Intent(baseContext, FoodNumActivity::class.java)
+                                    setResult(2, intent)
+                                    finish()
+                                }
+                            }
                             }
                         }
                     }

@@ -95,22 +95,7 @@ class ChoiceRestaurantActivity : AppCompatActivity(){
             val intent = Intent(this,RestaurantActivity::class.java)
             intent.putExtra("Category",category)
             intent.putExtra("uid",uidList[position])
-            startActivityForResult(intent,1)
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode==1&&resultCode==1&&data!=null){
-            val intent = Intent(this,MainActivity::class.java)
-            intent.putExtra("NewRoute",data.extras!!.get("NewRoute") as CheckingRoute)
-            setResult(1,intent)
-            finish()
-        }
-        if(requestCode==2&&resultCode==2&&data!=null){
-            val intent = Intent(this,MainActivity::class.java)
-            intent.putExtra("NewRoute",data.extras!!.get("NewRoute") as CheckingRoute)
-            setResult(1,intent)
+            startActivity(intent)
             finish()
         }
     }
