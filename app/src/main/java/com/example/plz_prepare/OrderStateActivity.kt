@@ -45,6 +45,9 @@ class OrderStateActivity: AppCompatActivity() {
                             if (Rnum.child("Customer").value==mAuth.currentUser!!.uid){
                                 changeRoute.add(CheckingRoute(DBcategory.key.toString(),DBrestaurant.key.toString(),Rnum.key.toString(),"ReadyOrder"))
                                 var totalString = ""
+                                val hour = Rnum.child("Time").child("Hour").value.toString()
+                                val minute = Rnum.child("Time").child("Minute").value.toString()
+                                totalString += hour+"시 "+minute+"분까지 준비 예정\n"
                                 for(i in 1 until Rnum.childrenCount-2){
                                     totalString += Rnum.child((i-1).toString()).child("food").child("fname").value.toString()+" : "+Rnum.child((i-1).toString()).child("num").value.toString()+"\n"
                                 }
