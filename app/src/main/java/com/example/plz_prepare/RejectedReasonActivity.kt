@@ -14,8 +14,8 @@ class RejectedReasonActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rejected_reason)
         database=FirebaseDatabase.getInstance().reference.child("Users").child(route.Category.toString()).child(route.Uid.toString()).child("RejectedOrder").child(route.Number.toString())
-        var reason = findViewById<TextView>(R.id.reasonText)
-        var okBtn = findViewById<Button>(R.id.okBtn)
+        val reason = findViewById<TextView>(R.id.reasonText)
+        val okBtn = findViewById<Button>(R.id.okBtn)
         database.addValueEventListener(object : ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

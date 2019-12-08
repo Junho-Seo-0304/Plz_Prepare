@@ -46,7 +46,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val description = "This is plz-prepare"
         val importance = NotificationManager.IMPORTANCE_HIGH
 
-        var notificationManager: NotificationManager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager: NotificationManager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         if( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, importance)
@@ -57,10 +57,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             channel.setShowBadge(false)
             notificationManager.createNotificationChannel(channel)
         }
-        var pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
         val notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 
-        var notificationBuilder = NotificationCompat.Builder(this,"Notification")
+        val notificationBuilder = NotificationCompat.Builder(this,"Notification")
             .setSmallIcon(R.mipmap.ic_food_round)
             .setContentTitle("Push Notification FCM")
             .setContentText(body)

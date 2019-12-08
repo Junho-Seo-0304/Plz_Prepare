@@ -2,20 +2,12 @@ package com.example.plz_prepare
 
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Color
-import android.location.*
 import android.os.Bundle
-import android.provider.Telephony
 import android.widget.ListView
 import android.widget.TextView
 
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import com.google.android.gms.common.api.GoogleApi
-import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.location.LocationServices
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_choice_restaurant.*
 
@@ -32,7 +24,7 @@ class ChoiceRestaurantActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choice_restaurant)
 
-        var locationBar = findViewById<TextView>(R.id.location_bar)
+        val locationBar = findViewById<TextView>(R.id.location_bar)
 
         locationBar.text = "지도로 식당 위치 보기"
         locationBar.setOnClickListener {
@@ -42,15 +34,15 @@ class ChoiceRestaurantActivity : AppCompatActivity(){
 
 
         var category = CList[CP]
-        var listView = findViewById<ListView>(R.id.restraunt_list)
+        val listView = findViewById<ListView>(R.id.restraunt_list)
 
 
-        var c1 = findViewById<TextView>(R.id.category_1)
-        var c2 = findViewById<TextView>(R.id.category_2)
-        var c3 = findViewById<TextView>(R.id.category_3)
-        var c4 = findViewById<TextView>(R.id.category_4)
-        var c5 = findViewById<TextView>(R.id.category_5)
-        var c6 = findViewById<TextView>(R.id.category_6)
+        val c1 = findViewById<TextView>(R.id.category_1)
+        val c2 = findViewById<TextView>(R.id.category_2)
+        val c3 = findViewById<TextView>(R.id.category_3)
+        val c4 = findViewById<TextView>(R.id.category_4)
+        val c5 = findViewById<TextView>(R.id.category_5)
+        val c6 = findViewById<TextView>(R.id.category_6)
 
         changeColor(category)
         changeListView(category,listView)
@@ -138,7 +130,7 @@ class ChoiceRestaurantActivity : AppCompatActivity(){
                             uidList.add(e.key.toString())
                         }
                     }
-                    val adapter = RestaurantListAdapter(this@ChoiceRestaurantActivity,R.layout.restaurant,RestaurantList,uidList)
+                    val adapter = RestaurantListAdapter(this@ChoiceRestaurantActivity,R.layout.restaurant,RestaurantList,uidList,category)
                     listView.adapter = adapter
                 }
             }

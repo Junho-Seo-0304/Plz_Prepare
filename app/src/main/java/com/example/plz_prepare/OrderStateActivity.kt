@@ -6,7 +6,6 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.storage.FirebaseStorage
 
 class OrderStateActivity: AppCompatActivity() {
 
@@ -20,7 +19,18 @@ class OrderStateActivity: AppCompatActivity() {
         setContentView(R.layout.activity_order_state)
         database = FirebaseDatabase.getInstance().reference.child("Users")
         mAuth = FirebaseAuth.getInstance()
-        var CheckingList = findViewById<ListView>(R.id.order_state_menu_list)
+        val CheckingList = findViewById<ListView>(R.id.order_state_menu_list)
+        searchOrder(CheckingList)
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent(this,MainActivity::class.java)
+        intent.putExtra("NewRoute",changeRoute)
+        setResult(2,intent)
+        super.onBackPressed()
+    }
+
+    private fun searchOrder(checkingList : ListView){
         database.addValueEventListener(object : ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -66,15 +76,8 @@ class OrderStateActivity: AppCompatActivity() {
                         }
                     }
                 }
-                CheckingList.adapter = OrderStateMenuAdapter(baseContext,R.layout.order_state_menu,changeRoute,Menulist)
+                checkingList.adapter = OrderStateMenuAdapter(baseContext,R.layout.order_state_menu,changeRoute,Menulist)
             }
         })
-    }
-
-    override fun onBackPressed() {
-        val intent = Intent(this,MainActivity::class.java)
-        intent.putExtra("NewRoute",changeRoute)
-        setResult(2,intent)
-        super.onBackPressed()
     }
 }

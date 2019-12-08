@@ -1,13 +1,11 @@
 package com.example.plz_prepare
 
-import android.annotation.SuppressLint
-import android.app.Activity
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.android.synthetic.main.activity_food_num.*
 
 class FoodNumActivity : AppCompatActivity() {
 
@@ -16,22 +14,22 @@ class FoodNumActivity : AppCompatActivity() {
     val uid by lazy {intent.extras!!["uid"] as String}
     val pushed by lazy { intent.extras!!["Pushed"] as Int }
     var num : Int = 0
-    @SuppressLint("WrongViewCast")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_food_num)
-        var imgView = findViewById<ImageView>(R.id.imgFood)
-        var foodName = findViewById<TextView>(R.id.foodName)
-        var foodPrice = findViewById<TextView>(R.id.foodPrice)
-        var foodExplain = findViewById<TextView>(R.id.foodExplain)
-        var foodQuantity = findViewById<TextView>(R.id.num)
-        var minusButton = findViewById<ImageView>(R.id.minus_button)
-        var plusButton = findViewById<ImageView>(R.id.plus_button)
-        var button = findViewById<Button>(R.id.button)
-        var cashBtn = findViewById<Button>(R.id.cash)
+        val imgView = findViewById<ImageView>(R.id.imgFood)
+        val foodName = findViewById<TextView>(R.id.foodName)
+        val foodPrice = findViewById<TextView>(R.id.foodPrice)
+        val foodExplain = findViewById<TextView>(R.id.foodExplain)
+        val foodQuantity = findViewById<TextView>(R.id.num)
+        val minusButton = findViewById<ImageView>(R.id.minus_button)
+        val plusButton = findViewById<ImageView>(R.id.plus_button)
+        val button = findViewById<Button>(R.id.button)
+        val cashBtn = findViewById<Button>(R.id.cash)
 
-        var storageRef = FirebaseStorage.getInstance().getReference(uid+"/"+food.Fname)
+        val storageRef = FirebaseStorage.getInstance().getReference(uid+"/"+food.Fname)
         GlideApp.with(this).load(storageRef).into(imgView)
         foodName.text=food.Fname
         foodPrice.text=food.Fprice.toString()
@@ -41,7 +39,7 @@ class FoodNumActivity : AppCompatActivity() {
         button.setOnClickListener{
             if(num>0) {
                 val numIntent = Intent(this, RestaurantActivity::class.java)
-                var order = Order(food, num)
+                val order = Order(food, num)
                 numIntent.putExtra("Order", order)
                 setResult(1, numIntent)
                 finish()
@@ -53,7 +51,7 @@ class FoodNumActivity : AppCompatActivity() {
         cashBtn.setOnClickListener {
             if(num>0) {
                 val intent = Intent(this, BasketActivity::class.java)
-                var orderList = arrayListOf<Order>()
+                val orderList = arrayListOf<Order>()
                 orderList.add(Order(food, num))
                 intent.putExtra("Category", category)
                 intent.putExtra("uid", uid)

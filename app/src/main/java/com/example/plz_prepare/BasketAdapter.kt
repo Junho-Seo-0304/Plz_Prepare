@@ -5,10 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 
 class BasketAdapter(val ctxt : Context, val layoutId : Int, val orderList : List<Order>, val uid : String)
@@ -25,7 +23,7 @@ class BasketAdapter(val ctxt : Context, val layoutId : Int, val orderList : List
         val Pbtn = view.findViewById<ImageView>(R.id.basket_plus_button)
         val Mbtn = view.findViewById<ImageView>(R.id.basket_minus_button)
 
-        var storageRef = FirebaseStorage.getInstance().getReference(uid+"/"+orderList[position].food!!.Fname)
+        val storageRef = FirebaseStorage.getInstance().getReference(uid+"/"+orderList[position].food!!.Fname)
         GlideApp.with(view).load(storageRef).into(Fimg)
         Fname.text = orderList[position].food!!.Fname
         Fprice.text = orderList[position].food!!.Fprice.toString()

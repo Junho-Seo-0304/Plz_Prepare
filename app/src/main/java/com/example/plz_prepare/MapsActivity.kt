@@ -8,20 +8,15 @@ import android.location.LocationListener
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.google.android.gms.location.LocationServices
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.database.*
-import java.lang.Double.parseDouble
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener{
 
@@ -53,7 +48,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener{
      */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        var currentLocation = LatLng(LX,LY)
+        val currentLocation = LatLng(LX,LY)
         mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation))
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation,15.toFloat()))
         if(ContextCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED) {
@@ -67,6 +62,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener{
         }
         database = FirebaseDatabase.getInstance().reference.child("Users")
 
+        val InfomarkerList = arrayListOf<InfoMarker>()
         database.addValueEventListener(object : ValueEventListener  {
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -74,23 +70,37 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener{
 
             override fun onDataChange(p0: DataSnapshot) {
                 googleMap.clear()
+                InfomarkerList.clear()
                 for(i in p0.children){
                     for(j in i.children){
                         val x = j.child("rlocationX").value.toString().toDouble()
                         val y = j.child("rlocationY").value.toString().toDouble()
-                        var marker = MarkerOptions().title(j.child("rname").value.toString()).position(LatLng(x,y))
+                        val marker = MarkerOptions().title(j.child("rname").value.toString()).position(LatLng(x,y))
                         mMap.addMarker(marker)
+                        InfomarkerList.add(InfoMarker(i.key.toString(),j.key.toString()))
                     }
                 }
             }
         })
+
+        mMap.setOnInfoWindowClickListener {
+            for(i in InfomarkerList.indices) {
+                if(it.id=="m"+i.toString()) {
+                    val intent = Intent(baseContext, RestaurantActivity::class.java)
+                    intent.putExtra("Category", InfomarkerList[i].category)
+                    intent.putExtra("uid", InfomarkerList[i].uid)
+                    startActivity(intent)
+                    finish()
+                }
+            }
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         if (requestCode==1){
-            if (grantResults.size>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
+            if (grantResults.isNotEmpty()&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
                 if(ContextCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED) {
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 10.0f, this)
                 }

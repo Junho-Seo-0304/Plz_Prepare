@@ -5,10 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.activity_food_num.*
 import kotlinx.android.synthetic.main.activity_restaurant.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 class RestaurantActivity : AppCompatActivity() {
 
@@ -29,9 +26,9 @@ class RestaurantActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance().reference.child("Users").child(category).child(uid)
         listView = findViewById(R.id.menu_list)
 
-        var Name_Text=findViewById<TextView>(R.id.order_bar)
+        val Name_Text=findViewById<TextView>(R.id.order_bar)
         foodsList = mutableListOf()
-        var button=findViewById<Button>(R.id.cash_button)
+        val button=findViewById<Button>(R.id.cash_button)
 
 
         database.addValueEventListener(object :ValueEventListener{

@@ -3,26 +3,18 @@ package com.example.plz_prepare
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.*
-import com.google.firebase.iid.FirebaseInstanceId
-import kotlinx.android.synthetic.main.activity_food_num.*
-import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
     val categoryList = ArrayList<Category>()
-    var routeArrayList = arrayListOf<CheckingRoute>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var Cgrid = findViewById<GridView>(R.id.category_gridview)
+        val Cgrid = findViewById<GridView>(R.id.category_gridview)
         categoryList.add(Category("한식", R.drawable.korean))
         categoryList.add(Category("중식",R.drawable.chinese))
         categoryList.add(Category("일식",R.drawable.japenese))
@@ -32,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         val CAdapter = CategoryAdapter(this,categoryList)
         Cgrid.adapter=CAdapter
 
-        var order_ = findViewById<ImageView>(R.id.order_)
+        val order_ = findViewById<ImageView>(R.id.order_)
 
         Cgrid.setOnItemClickListener { parent, view, position, id ->
             val intent = Intent(this,ChoiceRestaurantActivity::class.java)

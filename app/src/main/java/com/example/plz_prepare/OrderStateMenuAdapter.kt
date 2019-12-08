@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.example.plz_prepare.CheckingRoute
-import com.example.plz_prepare.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
@@ -29,13 +27,12 @@ class OrderStateMenuAdapter(val ctxt : Context, val layoutId : Int, val RouteLis
         val StateText = view.findViewById<TextView>(R.id.state_text)
         val Cancelbtn = view.findViewById<Button>(R.id.cancel_button)
 
-        var storageRef = FirebaseStorage.getInstance().getReference(RouteList[position].Uid+"/"+"logo")
+        val storageRef = FirebaseStorage.getInstance().getReference(RouteList[position].Uid+"/"+"logo")
         GlideApp.with(view).load(storageRef).into(logo)
         firebase=FirebaseDatabase.getInstance().reference.child("Users").child(RouteList[position].Category!!).child(RouteList[position].Uid!!)
         mAuth = FirebaseAuth.getInstance()
         firebase.addValueEventListener(object : ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
             override fun onDataChange(p0: DataSnapshot) {
                 phoneNum = p0.child("phoneNum").value.toString()
