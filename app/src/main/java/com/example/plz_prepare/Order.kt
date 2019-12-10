@@ -3,6 +3,7 @@ package com.example.plz_prepare
 import android.os.Parcel
 import android.os.Parcelable
 
+// 음식과 음식의 수를 가지고 있는 class
 class Order(val food: Menu?, var num: Int) : Parcelable {
     constructor(source: Parcel) : this(
         source.readParcelable<Menu>(Menu::class.java.classLoader),

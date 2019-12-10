@@ -36,6 +36,5 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, OrderStateActivity::class.java)
             startActivity(intent)
         }
-
     }
 }

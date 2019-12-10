@@ -30,13 +30,14 @@ class FoodNumActivity : AppCompatActivity() {
         val cashBtn = findViewById<Button>(R.id.cash)
 
         val storageRef = FirebaseStorage.getInstance().getReference(uid+"/"+food.Fname)
-        GlideApp.with(this).load(storageRef).into(imgView)
+        GlideApp.with(this).load(storageRef).into(imgView) // GlideApp을 이용해 Firebase Storage에 저장되어있는 음식 이미지를 이미지뷰에 load해준다.
         foodName.text=food.Fname
         foodPrice.text=food.Fprice.toString()
         foodExplain.text=food.Fexplain
         foodQuantity.text=num.toString()
 
         button.setOnClickListener{
+            // 주문할 음식의 수가 0 이상일때만 장바구니에 넣을 수 있다
             if(num>0) {
                 val numIntent = Intent(this, RestaurantActivity::class.java)
                 val order = Order(food, num)
@@ -49,6 +50,7 @@ class FoodNumActivity : AppCompatActivity() {
         }
 
         cashBtn.setOnClickListener {
+            // 주문할 음식의 수가 0 이상일때만 주문할 수 있다.
             if(num>0) {
                 val intent = Intent(this, BasketActivity::class.java)
                 val orderList = arrayListOf<Order>()
@@ -74,8 +76,6 @@ class FoodNumActivity : AppCompatActivity() {
             num++
             foodQuantity.text=num.toString()
         }
-
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -5,8 +5,7 @@ import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
 
-
-
+// 주문을 결제하였을 때 레스토랑 관리자 어플을 이용하는 기기에 푸쉬알람을 보낸다.
 class FCMPush(val pushToken : String){
     val AUTH_Key_FCM = "AAAAlWmg7E8:APA91bG4r6BSyzyWT1js5WWD8r50l2FMQjIlO7aADqsCH95ycSaAgyN2xFHfmGVuAZ517tyEbrmbwuk3ImOz9jOP_pZ300xmnSbdI9EoCmF72xyNA0Z_Nrhc5UyTUEndFXcc_GtoIPZV"
     val URL_FCM = "https://fcm.googleapis.com/fcm/send"
@@ -16,6 +15,7 @@ class FCMPush(val pushToken : String){
     lateinit var wr : OutputStreamWriter
 
     fun pushFCMNotification(){
+        // 푸쉬 알람을 보내는 함수
         conn.useCaches = false
         conn.doInput = true
         conn.doOutput = true
@@ -23,8 +23,8 @@ class FCMPush(val pushToken : String){
         conn.setRequestProperty("Authorization","key="+AUTH_Key_FCM)
         conn.setRequestProperty("Content-Type","application/json")
 
-        val json = JsonObject()
-        val info = JsonObject()
+        val json = JsonObject() // 푸쉬 알람을 FCM service에 보내는 Json
+        val info = JsonObject() // 푸쉬 알람에 대한 정보를 저장하는 JsonObject
 
         val msgBody = "주문이 접수되었습니다.\n주문을 확인해주세요."
         info.addProperty("title","알림")

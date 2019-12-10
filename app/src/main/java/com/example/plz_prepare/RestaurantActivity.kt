@@ -30,10 +30,9 @@ class RestaurantActivity : AppCompatActivity() {
         foodsList = mutableListOf()
         val button=findViewById<Button>(R.id.cash_button)
 
-
         database.addValueEventListener(object :ValueEventListener{
+            // 선택한 레스토랑의 정보를 가져온다
             override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
             override fun onDataChange(p0: DataSnapshot) {
@@ -63,10 +62,10 @@ class RestaurantActivity : AppCompatActivity() {
             startActivityForResult(intent, 1)
         }
 
-
         button.text = priceState.toString() + "원 결제하기"
 
         button.setOnClickListener {
+            // 주문할 금액이 0 이상이어야 주문이 가능하다.
             if(priceState>0) {
                 val intent = Intent(this, BasketActivity::class.java)
                 intent.putExtra("Category", category)
@@ -80,8 +79,8 @@ class RestaurantActivity : AppCompatActivity() {
                 Toast.makeText(this,"주문할 음식이 없습니다.\n다시 확인해주세요.",Toast.LENGTH_SHORT).show()
             }
         }
-
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
             if(requestCode==1){

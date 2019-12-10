@@ -23,17 +23,9 @@ class OrderStateActivity: AppCompatActivity() {
         searchOrder(CheckingList)
     }
 
-    override fun onBackPressed() {
-        val intent = Intent(this,MainActivity::class.java)
-        intent.putExtra("NewRoute",changeRoute)
-        setResult(2,intent)
-        super.onBackPressed()
-    }
-
-    private fun searchOrder(checkingList : ListView){
+    private fun searchOrder(checkingList : ListView){ // 현 유저의 UID가 주문한 주문내역을 찾아 리스트뷰에 연결하는 함수
         database.addValueEventListener(object : ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
             override fun onDataChange(p0: DataSnapshot) {

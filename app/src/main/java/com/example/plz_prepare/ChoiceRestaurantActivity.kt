@@ -32,10 +32,8 @@ class ChoiceRestaurantActivity : AppCompatActivity(){
             startActivityForResult(intent,2)
         }
 
-
         var category = CList[CP]
         val listView = findViewById<ListView>(R.id.restraunt_list)
-
 
         val c1 = findViewById<TextView>(R.id.category_1)
         val c2 = findViewById<TextView>(R.id.category_2)
@@ -44,8 +42,10 @@ class ChoiceRestaurantActivity : AppCompatActivity(){
         val c5 = findViewById<TextView>(R.id.category_5)
         val c6 = findViewById<TextView>(R.id.category_6)
 
-        changeColor(category)
-        changeListView(category,listView)
+        changeColor(category) // 메인에서 선택된 카테고리의 버튼의 색을 바꿔준다.
+        changeListView(category,listView) // 메인에서 선택된 카테고리의 레스토랑들을 리스트뷰에 연결해준다.
+
+        // 아래는 카테고리 버튼을 눌렀을 때 버튼의 색과 카테고리에 맞는 식당을 리스트뷰에 연결
         c1.setOnClickListener{
             category="한식"
             resetColor()
@@ -92,7 +92,7 @@ class ChoiceRestaurantActivity : AppCompatActivity(){
         }
     }
 
-    private fun resetColor(){
+    private fun resetColor(){ // 모든 버튼의 색을 리셋
         category_1.setBackgroundColor(Color.parseColor("#A9EB8282"))
         category_2.setBackgroundColor(Color.parseColor("#A9EB8282"))
         category_3.setBackgroundColor(Color.parseColor("#A9EB8282"))
@@ -101,7 +101,7 @@ class ChoiceRestaurantActivity : AppCompatActivity(){
         category_6.setBackgroundColor(Color.parseColor("#A9EB8282"))
     }
 
-    private fun changeColor(category: String){
+    private fun changeColor(category: String){ // 선택된 카테고리 버튼의 색만 바꾼다.
         when(category){
             "한식" -> category_1.setBackgroundColor(Color.parseColor("#80FF0000"))
             "중식" -> category_2.setBackgroundColor(Color.parseColor("#80FF0000"))
@@ -112,11 +112,10 @@ class ChoiceRestaurantActivity : AppCompatActivity(){
         }
     }
 
-    private fun changeListView(category: String, listView : ListView){
+    private fun changeListView(category: String, listView : ListView){ // 선택된 카테고리의 레스토랑들을 리스트뷰에 연결
         database=FirebaseDatabase.getInstance().reference.child("Users").child(category)
         database.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
             override fun onDataChange(p0: DataSnapshot) {

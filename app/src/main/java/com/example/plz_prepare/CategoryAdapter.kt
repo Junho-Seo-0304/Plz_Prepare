@@ -9,6 +9,7 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.category.view.*
 
 class CategoryAdapter(val context : Context, val category : ArrayList<Category>) : BaseAdapter(){
+    // MainAtivity에 카테고리를 보여주는 그리드뷰와 카테고리 이름과 이미지를 연결해주는 어뎁터
     override fun getCount(): Int {
         return category.size
     }

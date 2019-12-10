@@ -12,7 +12,7 @@ import com.google.firebase.storage.FirebaseStorage
 
 class OrderStateMenuAdapter(val ctxt : Context, val layoutId : Int, val RouteList : ArrayList<CheckingRoute>, val MenuList : ArrayList<String>)
     : ArrayAdapter<CheckingRoute>(ctxt,layoutId,RouteList){
-
+    // 주문상태를 리스트뷰에 연결하는 어뎁터
     private lateinit var firebase : DatabaseReference
     private lateinit var mAuth : FirebaseAuth
     var phoneNum : String? = null

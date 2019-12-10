@@ -17,8 +17,8 @@ class RejectedReasonActivity : AppCompatActivity() {
         val reason = findViewById<TextView>(R.id.reasonText)
         val okBtn = findViewById<Button>(R.id.okBtn)
         database.addValueEventListener(object : ValueEventListener{
+            // 거절 이유를 찾는다
             override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
             override fun onDataChange(p0: DataSnapshot) {
@@ -29,6 +29,5 @@ class RejectedReasonActivity : AppCompatActivity() {
             database.removeValue()
             finish()
         }
-
     }
 }

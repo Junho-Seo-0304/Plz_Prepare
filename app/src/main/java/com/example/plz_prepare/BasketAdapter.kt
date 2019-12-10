@@ -11,9 +11,8 @@ import com.google.firebase.storage.FirebaseStorage
 
 class BasketAdapter(val ctxt : Context, val layoutId : Int, val orderList : List<Order>, val uid : String)
     : ArrayAdapter<Order>(ctxt,layoutId,orderList){
-
+    // 주문할 음식을 장바구니 Activity에 있는 리스트뷰와 연결을 해주는 어뎁터
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-
         val layoutInflater : LayoutInflater = LayoutInflater.from(ctxt)
         val view : View = layoutInflater.inflate(layoutId,null)
         val Fimg = view.findViewById<ImageView>(R.id.basket_menu_imageview)
@@ -30,11 +29,13 @@ class BasketAdapter(val ctxt : Context, val layoutId : Int, val orderList : List
         Fnum.text = orderList[position].num.toString()
 
         Pbtn.setOnClickListener {
+            // 주문 개수를 늘리는 버튼
             orderList[position].num++
             this.notifyDataSetChanged()
         }
 
         Mbtn.setOnClickListener {
+            // 주문 개수를 줄이는 버튼
             if(orderList[position].num!=0){
                 orderList[position].num--
                 this.notifyDataSetChanged()

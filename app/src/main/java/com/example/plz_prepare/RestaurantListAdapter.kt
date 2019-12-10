@@ -14,7 +14,7 @@ import kotlin.collections.ArrayList
 
 class RestaurantListAdapter(val ctxt : Context, val layoutId : Int, val restaurantList : ArrayList<Restaurant> , val uidList : ArrayList<String>, val category: String)
     :ArrayAdapter<Restaurant>(ctxt,layoutId,restaurantList){
-
+    // ChoiceRestaurantActivity에 레스토랑들을 리스트뷰에 연결해주는 어뎁터
     private lateinit var firebase : DatabaseReference
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -32,6 +32,7 @@ class RestaurantListAdapter(val ctxt : Context, val layoutId : Int, val restaura
             override fun onDataChange(p0: DataSnapshot) {
                 val rlX = p0.child("rlocationX").value.toString().toDouble()
                 val rlY = p0.child("rlocationY").value.toString().toDouble()
+                // geocoder를 이용하여 레스토랑의 위치를 주소로 바꿔준다.
                 val geocoder = Geocoder(ctxt, Locale.KOREAN)
                 val location = geocoder.getFromLocation(rlX,rlY,1)
                 locationText.text = location[0].getAddressLine(0)

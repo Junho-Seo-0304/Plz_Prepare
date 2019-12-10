@@ -37,7 +37,7 @@ class BasketActivity : AppCompatActivity() {
         }
     }
 
-    private fun payment(){
+    private fun payment(){ // 결제 하고 주문 내역을 Firebase realtime database에 저장
         var totalNum = 0
         for (i in orderList) {
             totalNum += i.num
@@ -45,14 +45,13 @@ class BasketActivity : AppCompatActivity() {
         if (totalNum > 0) {
             database.addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 }
 
                 override fun onDataChange(p0: DataSnapshot) {
-
+                    // 주문할려는 레스토랑에 준비할 주문이 있으면 현재 사용된 주문 번호 다음 번호를 이용한다.
+                    // 주문할려는 레스토랑에 준비할 주문이 없으면 101번을 이용
                     if (p0.child("PermissionOrder").exists()) {
                         if (Complete == false) {
-
                             var num: Int =
                                 Integer.parseInt(p0.child("UsedNum").value.toString())
                             num++

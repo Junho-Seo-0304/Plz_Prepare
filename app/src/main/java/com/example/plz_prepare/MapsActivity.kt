@@ -23,14 +23,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener{
     private lateinit var mMap: GoogleMap
     var LX : Double = 37.600562
     var LY : Double = 126.864789
-
+    // 현재 위치에 대한 permission을 수락 하지 않았을 때 기본 위치를 한국항공대학교의 위도, 경도로 설정
     val locationManager : LocationManager by lazy { getSystemService(Context.LOCATION_SERVICE) as LocationManager }
     private lateinit var database : DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -52,20 +51,22 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener{
         mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation))
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation,15.toFloat()))
         if(ContextCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED) {
+            //현 위치에 대한 permission이 수락 되어 있으면 현 위치를 맵에 보여준다.
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 10.0f, this)
         } else{
             if(shouldShowRequestPermissionRationale(android.Manifest.permission.ACCESS_FINE_LOCATION)){
-
+                // 이미 거절되어 있는 상태이면 수락창을 띄우지 않고 아무것도 하지 않는다.
             }else {
+                // 거절 되어 있는 상태가 아니라면 permission을 request한다.
                 requestPermissions(Array(1) { android.Manifest.permission.ACCESS_FINE_LOCATION },1)
             }
         }
+
         database = FirebaseDatabase.getInstance().reference.child("Users")
 
         val InfomarkerList = arrayListOf<InfoMarker>()
         database.addValueEventListener(object : ValueEventListener  {
             override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
             override fun onDataChange(p0: DataSnapshot) {
@@ -84,6 +85,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener{
         })
 
         mMap.setOnInfoWindowClickListener {
+            // 마커를 클릭했을 때 뜨는 정보창을 클릭하면 그 레스토랑에 주문을 할 수 있는 Activity를 띄운다.
             for(i in InfomarkerList.indices) {
                 if(it.id=="m"+i.toString()) {
                     val intent = Intent(baseContext, RestaurantActivity::class.java)
@@ -98,9 +100,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener{
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
         if (requestCode==1){
             if (grantResults.isNotEmpty()&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                // permission이 수락되었다면 현 위치를 맵에 띄운다.
                 if(ContextCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED) {
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 10.0f, this)
                 }
@@ -109,6 +111,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener{
     }
 
     override fun onLocationChanged(location: Location?) {
+        // 위치가 변할 때마다 그 위치를 맵에 수정하여 띄운다.
         if(location!=null){
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(location.latitude,location.longitude),15.0f))
         }
